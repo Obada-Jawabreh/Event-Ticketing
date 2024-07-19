@@ -38,4 +38,5 @@ export {
   createUser,
   sendEmailLink,
   loginFirebase,
+  GoogleAuthProvider,
 };

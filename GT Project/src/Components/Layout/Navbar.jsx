@@ -1,6 +1,6 @@
 
 "use client";
-
+import { Link } from "react-router-dom";
 import { Button, Navbar } from "flowbite-react";
 // import logo from './images/8.png'
  function Nav() {
@@ -11,11 +11,11 @@ import { Button, Navbar } from "flowbite-react";
         <span className="self-center whitespace-nowrap text-xl font-semibold text-white">GTickets</span>
       </Navbar.Brand>
       <div className="flex md:order-2">
-        <Button className="bg-pin">Login</Button>
+       <Link to="/login"> <Button className="bg-pin">Login</Button></Link>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link className="text-white" href="#" >
+        <Navbar.Link className="text-white" href="/" >
           Home
         </Navbar.Link>
        <Navbar.Link className="text-white" href="#">Tickets</Navbar.Link> 
