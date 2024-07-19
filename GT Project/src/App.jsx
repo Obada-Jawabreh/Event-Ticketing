@@ -1,10 +1,13 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./Components/Layout/Navbar";
+import {Nav} from "./Components/Layout/Navbar";
+import { Foot } from "./Components/Layout/Footer";
+
 function App() {
   return (
     <>
-      <Navbar />
+      <Nav />
+      <Foot />
     </>
   );
 }
