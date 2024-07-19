@@ -15,8 +15,8 @@ const StyledMainButton = styled.button`
 `;
 
 // eslint-disable-next-line react/prop-types
-function MainButton({ children }) {
-  return <StyledMainButton>{children}</StyledMainButton>;
+function MainButton({ children, id, onclick }) {
+  return <StyledMainButton id={id}>{children}</StyledMainButton>;
 }
 
 export default MainButton;
