@@ -12,28 +12,43 @@ import {
   SRedirectLabel,
 } from "./Styles";
 
-// convert an array of form objects into an object
 const prepareForm = (formArr) => {
   return formArr.reduce((r, v) => ({ ...r, [v.name]: v.value }), {});
 };
 
-function Form({ title, formArr, subitBtn, onSubmit, redirect, onChange }) {
+function Form({
+  title,
+  formArr,
+  subitBtn,
+  onSubmit,
+  redirect,
+  onChange,
+  withEvent,
+}) {
   const initialForm = prepareForm(formArr);
 
   const [form, setForm] = useState(initialForm);
 
-  const onSubmitHandler = () => onSubmit(form, () => setForm(initialForm));
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (withEvent) {
+      onSubmit(e, form, () => setForm(initialForm));
+    } else {
+      onSubmit(form, () => setForm(initialForm));
+    }
+  };
+
   const onChangeHandler = (e) => {
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
-    onChange(e); // Call the passed onChange function
+    if (onChange) onChange(e);
   };
 
   const hasRedirect = !!redirect;
 
   return (
-    <SForm>
+    <SForm onSubmit={onSubmitHandler}>
       <SFormTitle>{title}</SFormTitle>
-      {formArr.map(({ label, name, type }, index) => (
+      {formArr.map(({ label, name, type, value, onChange }, index) => (
         <SFormControl key={index}>
           <SLable htmlFor={name}>{label}</SLable>
           <SInput
@@ -41,19 +56,12 @@ function Form({ title, formArr, subitBtn, onSubmit, redirect, onChange }) {
             id={name}
             name={name}
             type={type}
-            value={form[name]}
+            value={value || form[name]}
             onChange={(e) => onChangeHandler(e)}
           />
         </SFormControl>
       ))}
-      <SButton
-        onClick={(e) => {
-          e.preventDefault();
-          onSubmitHandler();
-        }}
-      >
-        {subitBtn}
-      </SButton>
+      <SButton type="submit">{subitBtn}</SButton>
       {hasRedirect && (
         <SRedirect>
           <SRedirectLabel>{redirect.label}</SRedirectLabel>
@@ -73,12 +81,15 @@ Form.propTypes = {
       label: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
+      value: PropTypes.string,
+      onChange: PropTypes.func,
     })
   ),
   subitBtn: PropTypes.string,
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
   redirect: PropTypes.object,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  withEvent: PropTypes.bool, // تحديد ما إذا كان يجب تمرير الحدث
 };
 
 export default Form;

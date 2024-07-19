@@ -3,10 +3,11 @@ import "./App.css";
 import Catalog from "./Pages/Catalog";
 import LogIn from "./Pages/Log in";
 import SiginUp from "./Pages/Sigin up";
-// import Checkout from "./Pages/Check out";
+import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
+
 
 function App() {
   return (
