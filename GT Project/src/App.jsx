@@ -1,12 +1,10 @@
-import { useState } from "react";
-import "./App.css";
-import EventDetails from "./Pages/Details";
-
+import Checkout from "./Pages/Check out";
+import Navbar from "./Components/Layout/Navbar";
 function App() {
   return (
     <>
-      {/* <h1>hello GT </h1> */}
-      <EventDetails/>
+      <Navbar />
+      <Checkout />
     </>
   );
 }
