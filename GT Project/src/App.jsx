@@ -1,11 +1,22 @@
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Catalog from "./Pages/Catalog";
+import LogIn from "./Pages/Log in";
+import SiginUp from "./Pages/Sigin up";
 import Checkout from "./Pages/Check out";
 import Navbar from "./Components/Layout/Navbar";
 function App() {
   return (
-    <>
-      <Navbar />
-      <Checkout />
-    </>
+    <div className="bg-prim-dark">
+      <BrowserRouter>
+        <Routes>
+          <Route path="signup" element={<SiginUp />} />
+          <Route path="login" element={<LogIn />} />
+          <Route path="Catalog" element={<Catalog />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
