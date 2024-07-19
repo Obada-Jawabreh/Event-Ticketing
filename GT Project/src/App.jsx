@@ -6,12 +6,14 @@ import SiginUp from "./Pages/Sigin up";
 // import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
+import SignUpComponent from "./Pages/Sigin up.jsx";
 
 function App() {
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
         <Nav />
+        <SignUpComponent />
         <Routes>
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />

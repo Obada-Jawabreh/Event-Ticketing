@@ -3,15 +3,11 @@ import Form from "../Components/Form/Form";
 import { GoogleBtn, FbBtn } from "../Components/Buttons/VerButton";
 
 function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
-console.log(form);
-  const onSubmitHandler = (form, callback) => {
-    console.log(form);
-  };
 
-  const onChangeHandler = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  // const onSubmitHandler = (form, callback) => {
+  //   console.log(form);
+  // };
+
 
   return (
     <div className="grid grid-cols-2 gap-12 px-52 h-screen justify-center content-start pt-24">
@@ -30,7 +26,6 @@ console.log(form);
               type: "password",
             },
           ]}
-          onChange={onChangeHandler}
           subitBtn={"Login"}
           onSubmit={onSubmitHandler}
           redirect={{
