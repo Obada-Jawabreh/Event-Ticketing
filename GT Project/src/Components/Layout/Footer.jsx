@@ -4,7 +4,7 @@
 import { Footer } from "flowbite-react";
 import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
-export function Foot() {
+export default function Foot() {
   return (
     <Footer container className="bg-blk ">
       <div className="w-full">

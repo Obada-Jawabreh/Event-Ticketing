@@ -1,10 +1,16 @@
-import { FbBtn, GoogleBtn } from "../Components/Buttons/VerButton";
+import { useState } from "react";
 import Form from "../Components/Form/Form";
+import { GoogleBtn, FbBtn } from "../Components/Buttons/VerButton";
 
 function Login() {
-  // eslint-disable-next-line no-unused-vars
+  const [form, setForm] = useState({ email: "", password: "" });
+console.log(form);
   const onSubmitHandler = (form, callback) => {
     console.log(form);
+  };
+
+  const onChangeHandler = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -12,7 +18,6 @@ function Login() {
       <div className="flex flex-col gap-6">
         <Form
           title={"Login"}
-          //inputs
           formArr={[
             {
               label: "Email",
@@ -25,6 +30,7 @@ function Login() {
               type: "password",
             },
           ]}
+          onChange={onChangeHandler}
           subitBtn={"Login"}
           onSubmit={onSubmitHandler}
           redirect={{
@@ -35,14 +41,14 @@ function Login() {
             },
           }}
         />
-        <GoogleBtn>SingUp with Google</GoogleBtn>
-        <FbBtn>SingUp with Google</FbBtn>
+        <GoogleBtn>Sign Up with Google</GoogleBtn>
+        <FbBtn>Sign Up with Facebook</FbBtn>
       </div>
       <div className="">
         <img
           src="https://i.pinimg.com/564x/89/d9/8d/89d98d4048d9700df7dda17fdb4c073a.jpg"
           alt="Event"
-          className="rounded-lg "
+          className="rounded-lg"
           style={{ width: "100%", height: "auto" }}
         />
       </div>

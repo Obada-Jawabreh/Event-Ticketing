@@ -9,7 +9,10 @@ const config = {
         'black':'#221B2C',
         'blk': '#191223',
         'pin':'#FF204E',
-
+        "prim-dark": "#221B2C",
+        "second-dark": "#31273F",
+        "custom-red": "#FF204E",
+        "custom-red-hover": "#FF0035",
       }
 
     },

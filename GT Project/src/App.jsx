@@ -3,18 +3,23 @@ import "./App.css";
 import Catalog from "./Pages/Catalog";
 import LogIn from "./Pages/Log in";
 import SiginUp from "./Pages/Sigin up";
-import Checkout from "./Pages/Check out";
-import Navbar from "./Components/Layout/Navbar";
+// import Checkout from "./Pages/Check out";
+import Nav from "./Components/Layout/Navbar.jsx";
+import Foot from "./Components/Layout/Footer.jsx"
+import Login from "./Pages/Log in";
 function App() {
 
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
+      <Nav/>
+      <Login/>
         <Routes>
-          <Route path="signup" element={<SiginUp />} />
-          <Route path="login" element={<LogIn />} />
-          <Route path="Catalog" element={<Catalog />} />
+          <Route path="/signup" element={<SiginUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/Catalog" element={<Catalog />} />
         </Routes>
+        <Foot/>
       </BrowserRouter>
     </div>
   );

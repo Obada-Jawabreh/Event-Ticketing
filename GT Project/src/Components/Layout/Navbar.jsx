@@ -3,10 +3,10 @@
 
 import { Button, Navbar } from "flowbite-react";
 // import logo from './images/8.png'
-export function Nav() {
+ function Nav() {
   return (
     <Navbar fluid rounded className="bg-blk">
-      <Navbar.Brand href="https://flowbite-react.com">
+      <Navbar.Brand >
         {/* <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" /> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold text-white">GTickets</span>
       </Navbar.Brand>
@@ -27,3 +27,4 @@ export function Nav() {
     </Navbar>
   );
 }
+export default Nav;

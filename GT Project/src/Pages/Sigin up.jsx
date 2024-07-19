@@ -2,6 +2,9 @@ import Form from "../Components/Form/Form";
 import { GoogleBtn, FbBtn } from "../Components/Buttons/VerButton";
 
 function SiginUp() {
+  const onSubmitHandler = (form, callback) => {
+    console.log(form);
+  };
   return (
     <div className="grid grid-cols-2 gap-12 px-52 h-screen justify-center content-start pt-24">
       {/* <Form title={""} /> */}
@@ -28,7 +31,7 @@ function SiginUp() {
             },
           ]}
           subitBtn={"Login"}
-          // onSubmit={onSubmitHandler}
+          onSubmit={onSubmitHandler}
           redirect={{
             label: "Have an account?",
             link: {
