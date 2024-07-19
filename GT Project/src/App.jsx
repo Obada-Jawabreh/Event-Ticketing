@@ -6,6 +6,7 @@ import SiginUp from "./Pages/Sigin up";
 // import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
+import Details from "./Pages/Details.jsx";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/Catalog" element={<Catalog />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="catalog/Details" element={<Details />} />
         </Routes>
         <Foot />
       </BrowserRouter>
