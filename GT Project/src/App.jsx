@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import FetchEvents from "./Hooks/getEvents.jsx";
-import { dbURL } from "./FirebaseConfig/Config";
-import CreateEvent from "./Hooks/createEvent.jsx";
-import EditEvent from "./Hooks/updateEvent.jsx";
-import { useEffect } from "react";
-import DeleteEvent from "./Hooks/deleteEvent.jsx";
-import {SignUpComponent, LoginComponent} from "./log.jsx";
-
-
+import Catalog from "./Pages/Catalog";
+import LogIn from "./Pages/Log in";
+import SiginUp from "./Pages/Sigin up";
+import Checkout from "./Pages/Check out";
+import Navbar from "./Components/Layout/Navbar";
 function App() {
 
-
   return (
-    <>
-    </>
+    <div className="bg-prim-dark">
+      <BrowserRouter>
+        <Routes>
+          <Route path="signup" element={<SiginUp />} />
+          <Route path="login" element={<LogIn />} />
+          <Route path="Catalog" element={<Catalog />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
