@@ -5,21 +5,19 @@ import LogIn from "./Pages/Log in";
 import SiginUp from "./Pages/Sigin up";
 // import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
-import Foot from "./Components/Layout/Footer.jsx"
-import Login from "./Pages/Log in";
-function App() {
+import Foot from "./Components/Layout/Footer.jsx";
 
+function App() {
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
-      <Nav/>
-      <Login/>
+        <Nav />
         <Routes>
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/Catalog" element={<Catalog />} />
         </Routes>
-        <Foot/>
+        <Foot />
       </BrowserRouter>
     </div>
   );

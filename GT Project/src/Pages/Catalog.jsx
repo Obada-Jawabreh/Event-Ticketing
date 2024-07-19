@@ -1,5 +1,7 @@
 import SearchInput from "../Components/SearchInput";
 import MainButton from "../Components/Buttons/MainButton";
+import { dbURL } from "../FirebaseConfig/Config";
+import FetchEvents from "./../Hooks/getEvents.jsx";
 function Catalog() {
   return (
     <>
@@ -35,6 +37,8 @@ function Catalog() {
 }
 
 function TicketCard() {
+  const [Events] = FetchEvents(dbURL);
+
   return (
     <div
       id="card"
