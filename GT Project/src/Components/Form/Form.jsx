@@ -16,19 +16,31 @@ const prepareForm = (formArr) => {
   return formArr.reduce((r, v) => ({ ...r, [v.name]: v.value }), {});
 };
 
-function Form({ title, formArr, subitBtn, onSubmit, redirect, onChange }) {
+function Form({
+  title,
+  formArr,
+  subitBtn,
+  onSubmit,
+  redirect,
+  onChange,
+  withEvent,
+}) {
   const initialForm = prepareForm(formArr);
 
   const [form, setForm] = useState(initialForm);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    onSubmit(form, () => setForm(initialForm));
+    if (withEvent) {
+      onSubmit(e, form, () => setForm(initialForm));
+    } else {
+      onSubmit(form, () => setForm(initialForm));
+    }
   };
 
   const onChangeHandler = (e) => {
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
-    if (onChange) onChange(e); // Call the passed onChange function
+    if (onChange) onChange(e);
   };
 
   const hasRedirect = !!redirect;
@@ -49,9 +61,7 @@ function Form({ title, formArr, subitBtn, onSubmit, redirect, onChange }) {
           />
         </SFormControl>
       ))}
-      <SButton type="submit">
-        {subitBtn}
-      </SButton>
+      <SButton type="submit">{subitBtn}</SButton>
       {hasRedirect && (
         <SRedirect>
           <SRedirectLabel>{redirect.label}</SRedirectLabel>
@@ -78,7 +88,8 @@ Form.propTypes = {
   subitBtn: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
   redirect: PropTypes.object,
-  onChange: PropTypes.func, // Updated to make it optional
+  onChange: PropTypes.func,
+  withEvent: PropTypes.bool, // تحديد ما إذا كان يجب تمرير الحدث
 };
 
 export default Form;

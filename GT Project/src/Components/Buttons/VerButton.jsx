@@ -13,9 +13,9 @@ const StyledVerButton = styled.button`
 `;
 
 // eslint-disable-next-line react/prop-types
-function GoogleBtn({ children }) {
+function GoogleBtn({ onClick, children, className }) {
   return (
-    <StyledVerButton>
+    <StyledVerButton onClick={onClick} className={className}>
       <GoogleSVG />
       {children}
     </StyledVerButton>
