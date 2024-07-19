@@ -1,37 +1,29 @@
-import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
+"use client";
 
-function Navbar() {
-  const [isactive, setisactive] = useState("false");
-  function Toggle() {
-    setisactive(!isactive);
-  }
+import { Button, Navbar } from "flowbite-react";
+// import logo from './images/8.png'
+export function Nav() {
   return (
-    <div className="containerr">
-      <div className="navbar">
-        <img src="" alt="logo" className="w-72 h-20" />
-        <button
-          className={isactive ? "active" : "null"}
-          onClick={Toggle}
-          id="burger-menu"
-        >
-          &#9776;
-        </button>
-        <div className="nav-item" id="nav-item">
-          <a href="">home</a>
-          <a href="">Contactus</a>
-          <a href="">myaccount</a>
-
-          <div></div>
-          <a className="b" href="">
-            login
-          </a>
-        </div>
-        <div className="hidd"></div>
+    <Navbar fluid rounded className="bg-blk">
+      <Navbar.Brand href="https://flowbite-react.com">
+        {/* <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" /> */}
+        <span className="self-center whitespace-nowrap text-xl font-semibold text-white">GTickets</span>
+      </Navbar.Brand>
+      <div className="flex md:order-2">
+        <Button className="bg-pin">Login</Button>
+        <Navbar.Toggle />
       </div>
-    </div>
+      <Navbar.Collapse>
+        <Navbar.Link className="text-white" href="#" >
+          Home
+        </Navbar.Link>
+       <Navbar.Link className="text-white" href="#">Tickets</Navbar.Link> 
+       <Navbar.Link className="text-white" href="#">Event Legends</Navbar.Link>
+        
+        
+        <Navbar.Link className="text-white" href="#">Quest for Help</Navbar.Link>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
-
-export default Navbar;
