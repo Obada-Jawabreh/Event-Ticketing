@@ -8,7 +8,14 @@ function Checkout() {
   const [CardNumber, setCardNumber] = useState("");
   const [CVC, setCVC] = useState("");
   const [Expiry, setExpiry] = useState("");
-  let z = localStorage.getItem("user");
+  let tuser = localStorage.getItem("user");
+  let tevent = localStorage.getItem("Event id");
+  let tcount = localStorage.getItem("count tickets");
+  let tprice = localStorage.getItem("price tickets");
+  console.log(tuser);
+  console.log(tevent);
+  console.log(tcount);
+  console.log(tprice);
 
   const addcard = async (e) => {
     e.preventDefault();
@@ -41,39 +48,35 @@ function Checkout() {
     <div className="bg-gray-900 text-white p-4 md:p-8 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
         <h2 className="text-xl mb-6 flex items-center">Shopping Continue</h2>
-        {[1, 2, 3].map((item) => (
-          <div
-            key={item}
-            className="bg-gray-800 rounded-lg p-4 mb-4 flex flex-col sm:flex-row items-center"
-          >
-            <img
-              src="placeholder.jpg"
-              alt="Event"
-              className="w-16 h-16 rounded mr-4 mb-4 sm:mb-0"
-            />
-            <div className="flex-grow mb-4 sm:mb-0 text-center sm:text-left">
-              <h3 className="font-bold">RIYADH MASTERS X ESPORTS WORLD CUP</h3>
-            </div>
-            <div className="flex items-center">
-              <span className="mx-2">1</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </div>
-            <span className="ml-4">$681</span>
+
+        <div className="bg-gray-800 rounded-lg p-4 mb-4 flex flex-col sm:flex-row items-center">
+          <img
+            src="placeholder.jpg"
+            alt="Event"
+            className="w-16 h-16 rounded mr-4 mb-4 sm:mb-0"
+          />
+          <div className="flex-grow mb-4 sm:mb-0 text-center sm:text-left">
+            <h3 className="font-bold">RIYADH MASTERS X ESPORTS WORLD CUP</h3>
           </div>
-        ))}
+          <div className="flex items-center">
+            <span className="mx-2">1</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <span className="ml-4">$681</span>
+        </div>
       </div>
       <div className="w-full md:w-1/2 bg-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-6">Let's Make Payment</h2>
