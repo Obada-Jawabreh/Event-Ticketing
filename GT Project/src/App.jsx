@@ -14,9 +14,9 @@ function App() {
     <div className="bg-prim-dark">
       <BrowserRouter>
         <Nav />
-        <Checkout />
+        {/* <Checkout /> */}
         <Routes>
-          <Route path="/" element={<SiginUp />} />
+          <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="catalog/Details" element={<Details />} />
