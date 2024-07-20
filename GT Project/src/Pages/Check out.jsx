@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ConfirmationPopup from "./Confirm";
 import axios from "axios";
-
 function Checkout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [Cardholder, setcardholder] = useState("");
@@ -16,6 +15,20 @@ function Checkout() {
   console.log(tevent);
   console.log(tcount);
   console.log(tprice);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://fire-base-e5ddc-default-rtdb.europe-west1.firebasedatabase.app/Events/${tevent}.json`
+        );
+        const data = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  });
 
   const addcard = async (e) => {
     e.preventDefault();
