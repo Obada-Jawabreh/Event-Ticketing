@@ -36,8 +36,6 @@ function Checkout() {
     setIsPopupOpen(false);
   };
 
-
-function Checkout() {
   return (
     <div className="bg-gray-900 text-white p-4 md:p-8 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
@@ -78,10 +76,7 @@ function Checkout() {
       </div>
       <div className="w-full md:w-1/2 bg-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-6">Let's Make Payment</h2>
-
         <form onSubmit={addcard}>
-        <form>
-
           <div className="mb-4">
             <label className="block text-sm mb-2">Cardholder's Name</label>
             <input
@@ -171,11 +166,20 @@ function Checkout() {
             <span className="text-red-500">Total</span>
             <span>$ 200.00</span>
           </div>
-          <button className="w-full bg-pink-600 text-white py-3 rounded-lg">
+          <button
+            className="w-full bg-pink-600 text-white py-3 rounded-lg"
+            onClick={handleCheckout}
+          >
             Checkout
           </button>
         </form>
       </div>
+
+      <ConfirmationPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 }
