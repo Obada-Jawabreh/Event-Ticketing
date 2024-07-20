@@ -7,6 +7,8 @@ import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
+import HomeComponent from './Pages/Home.jsx';
+
 
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
+        <Route path="/home" element={<HomeComponent />} />
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
