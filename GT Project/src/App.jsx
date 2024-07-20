@@ -7,9 +7,8 @@ import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
-import HomeComponent from './Pages/Home.jsx';
-
-
+import ProfileSettings from "./Pages/Profile.jsx";
+// import Home from "./Pages/Home.jsx";
 
 function App() {
   return (
@@ -17,11 +16,13 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
-        <Route path="/home" element={<HomeComponent />} />
-          <Route path="/signup" element={<SiginUp />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/siginUp" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="catalog/Details" element={<Details />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile" element={<ProfileSettings />} />
         </Routes>
         <Foot />
       </BrowserRouter>

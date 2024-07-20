@@ -12,11 +12,19 @@ const StyledMainButton = styled.button`
   background: #ff204e;
   padding: 12px 20px;
   width: 100%;
+
+  &:hover {
+    background: #d4054c;
+  }
 `;
 
 // eslint-disable-next-line react/prop-types
-function MainButton({ children, id, onclick }) {
-  return <StyledMainButton id={id}>{children}</StyledMainButton>;
+function MainButton({ children, id, onClick }) {
+  return (
+    <StyledMainButton id={id} onClick={onClick}>
+      {children}
+    </StyledMainButton>
+  );
 }
 
 export default MainButton;

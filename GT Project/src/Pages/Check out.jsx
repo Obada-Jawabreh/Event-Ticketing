@@ -1,4 +1,41 @@
+import React, { useState } from "react";
+import ConfirmationPopup from "./Confirm";
+import axios from "axios";
 function Checkout() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [Cardholder, setcardholder] = useState("");
+  const [CardNumber, setCardNumber] = useState("");
+  const [CVC, setCVC] = useState("");
+  const [Expiry, setExpiry] = useState("");
+  let z = localStorage.getItem("user");
+
+  const addcard = async (e) => {
+    e.preventDefault();
+    const newcard = {
+      Cardholder,
+      CardNumber,
+      Expiry,
+      CVC,
+    };
+    try {
+      const response = await axios.post(
+        `https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users/${z}/card.json`,
+        newcard
+      );
+    } catch {
+      console.error("Error adding ");
+    }
+  };
+  const handleCheckout = () => {
+    setIsPopupOpen(true);
+  };
+
+  const handleConfirm = () => {
+    // هنا يمكنك إضافة المنطق الخاص بتأكيد عملية الشراء
+    console.log("Checkout confirmed");
+    setIsPopupOpen(false);
+  };
+
   return (
     <div className="bg-gray-900 text-white p-4 md:p-8 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
@@ -39,13 +76,15 @@ function Checkout() {
       </div>
       <div className="w-full md:w-1/2 bg-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-6">Let's Make Payment</h2>
-        <form>
+        <form onSubmit={addcard}>
           <div className="mb-4">
             <label className="block text-sm mb-2">Cardholder's Name</label>
             <input
               type="text"
               placeholder="User Name"
-              className="w-full bg-gray-700 rounded p-2"
+              className="w-full bg-gray-700 rounded p-2 pl-10"
+              value={Cardholder}
+              onChange={(e) => setcardholder(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -55,6 +94,8 @@ function Checkout() {
                 type="text"
                 placeholder="User Name"
                 className="w-full bg-gray-700 rounded p-2 pl-10"
+                value={CardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
               />
               <div className="absolute left-2 top-2">
                 <svg
@@ -85,6 +126,8 @@ function Checkout() {
                 type="text"
                 placeholder="User Name"
                 className="w-full bg-gray-700 rounded p-2"
+                value={Expiry}
+                onChange={(e) => setExpiry(e.target.value)}
               />
             </div>
             <div className="w-full sm:w-1/2 sm:ml-2">
@@ -93,6 +136,8 @@ function Checkout() {
                 type="text"
                 placeholder="User Name"
                 className="w-full bg-gray-700 rounded p-2"
+                value={CVC}
+                onChange={(e) => setCVC(e.target.value)}
               />
             </div>
           </div>
@@ -121,11 +166,20 @@ function Checkout() {
             <span className="text-red-500">Total</span>
             <span>$ 200.00</span>
           </div>
-          <button className="w-full bg-pink-600 text-white py-3 rounded-lg">
+          <button
+            className="w-full bg-pink-600 text-white py-3 rounded-lg"
+            onClick={handleCheckout}
+          >
             Checkout
           </button>
         </form>
       </div>
+
+      <ConfirmationPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 }
