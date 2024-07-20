@@ -22,7 +22,6 @@ function App() {
           <Route path="catalog/Details" element={<Details />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfileSettings />} />
-
         </Routes>
         <Foot />
       </BrowserRouter>
