@@ -64,7 +64,7 @@ function Login() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-12 px-52 h-screen justify-center content-start pt-24">
+    <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-24 gap-12 h-screen justify-center content-start py-24">
       <div className="flex flex-col gap-6">
         <Form
           title={"Login"}
