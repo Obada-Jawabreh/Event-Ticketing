@@ -3,7 +3,10 @@ import FetchEventById from "../Hooks/getEventByID";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate  } from "react-router-dom";
+
 const EventDetails = () => {
+  // const user = JSON.parse(localStorage.getItem("user"));
+
   let [masseage , setMassage]=useState("");
   const navigate=useNavigate()
   const eventId = JSON.parse(localStorage.getItem("Event id"));
@@ -79,7 +82,7 @@ const EventDetails = () => {
             <img
               src={event.image}
               alt="Event Banner"
-              className="w-2/4 h-100 object-cover rounded-lg"
+              className="w- h-100 object-cover rounded-lg"
             />
           </div>
           <h1 className="text-2xl ml-7 font-bold mb-12">{event.name}</h1>
