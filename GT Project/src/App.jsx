@@ -8,14 +8,17 @@ import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
 import ProfileSettings from "./Pages/Profile.jsx";
+import HomeComponent from './Pages/Home.jsx'; 
 
 function App() {
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
         <Nav />
+        {/* <HomeComponent /> */}
         {/* <Checkout /> */}
         <Routes>
+        <Route path="/" element ={<HomeComponent />}/>
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
