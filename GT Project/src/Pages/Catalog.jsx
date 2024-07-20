@@ -28,6 +28,7 @@ function Catalog() {
 
   return (
     <>
+    
       <div className="bg-prim-dark pt-12 mx-8 sm:mx-8 lg:mx-12 xl:mx-24 mb-40">
         <div
           id="SearchBar"

@@ -9,7 +9,6 @@ import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
 import ProfileSettings from "./Pages/Profile.jsx";
 
-
 function App() {
   return (
     <div className="bg-prim-dark">
@@ -21,7 +20,9 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="catalog/Details" element={<Details />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfileSettings />} />
+
         </Routes>
         <Foot />
       </BrowserRouter>
