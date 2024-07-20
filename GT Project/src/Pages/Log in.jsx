@@ -28,6 +28,7 @@ function Login() {
       );
       const user = userCredential.user;
       console.log("User logged in:", user);
+      localStorage.setItem("user", JSON.stringify(user.uid));
       navigate("/");
     } catch (error) {
       setError("Incorrect email or password.");
@@ -35,7 +36,7 @@ function Login() {
     }
   };
 
-  // login bt google
+  // login by google
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
     const provider = new GoogleAuthProvider();
@@ -43,7 +44,9 @@ function Login() {
 
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log(result);
       const user = result.user;
+      console.log("users this ", user);
       const userData = {
         name: user.displayName || "",
         email: user.email || "",
@@ -51,6 +54,8 @@ function Login() {
       };
 
       await axios.put(`${dbURL}/users/${user.uid}.json`, userData);
+      localStorage.setItem("user", JSON.stringify(user.uid));
+
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -79,7 +84,7 @@ function Login() {
           ]}
           subitBtn={"Login"}
           onSubmit={handleLogin}
-          withEvent={true} 
+          withEvent={true}
           redirect={{
             label: "Don't have an account?",
             link: {
