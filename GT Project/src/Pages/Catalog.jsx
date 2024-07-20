@@ -75,7 +75,7 @@ function TicketCard({ name, startDate, endDate, price, eventId, img }) {
 
   const navigate = useNavigate();
   const handleSelectTicket = (ticketId) => {
-    localStorage.setItem("user", JSON.stringify(ticketId));
+    localStorage.setItem("Event id", JSON.stringify(ticketId));
     navigate("details");
   };
 
