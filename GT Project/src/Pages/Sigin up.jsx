@@ -72,7 +72,8 @@ const SignUpComponent = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-12 px-52 h-screen justify-center content-start pt-24">
+    <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2xl:grid-cols-2 gap-12 px-52 h-screen justify-center content-start pt-24">
+      {/* className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6" */}
       <div className="flex flex-col gap-6">
         <Form
           className="p-24"

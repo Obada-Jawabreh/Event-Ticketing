@@ -1,7 +1,7 @@
 // Components/TicketCard.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import MainButton from './Buttons/MainButton';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import MainButton from "./Buttons/MainButton";
 
 const TicketCard = ({ name, startDate, endDate, price, eventId, img }) => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const TicketCard = ({ name, startDate, endDate, price, eventId, img }) => {
   return (
     <div
       id="card"
-      className="bg-second-dark rounded-2xl flex p-6 flex-col items-center gap-3 justify-between"
+      className="bg-second-dark rounded-2xl flex p-6 flex-col items-center gap-3 justify-between hover:bg-gradient-four-colors hover:scale-105 transition-transform duration-200"
     >
       <div>
         <div id="img">
