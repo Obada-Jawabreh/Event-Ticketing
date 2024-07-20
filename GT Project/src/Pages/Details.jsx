@@ -82,7 +82,7 @@ const EventDetails = () => {
             <img
               src={event.image}
               alt="Event Banner"
-              className="w- h-100 object-cover rounded-lg"
+              className="w-2/4 h-100 object-cover rounded-lg"
             />
           </div>
           <h1 className="text-2xl ml-7 font-bold mb-12">{event.name}</h1>
