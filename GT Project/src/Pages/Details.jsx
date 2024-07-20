@@ -3,7 +3,10 @@ import FetchEventById from "../Hooks/getEventByID";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate  } from "react-router-dom";
+
 const EventDetails = () => {
+  // const user = JSON.parse(localStorage.getItem("user"));
+
   let [masseage , setMassage]=useState("");
   const navigate=useNavigate()
   const eventId = JSON.parse(localStorage.getItem("Event id"));
