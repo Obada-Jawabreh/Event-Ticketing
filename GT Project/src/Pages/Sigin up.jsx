@@ -123,6 +123,7 @@ const SignUpComponent = () => {
         </GoogleBtn>
       </div>
       <img
+        className=" "
         src="https://i.pinimg.com/564x/89/d9/8d/89d98d4048d9700df7dda17fdb4c073a.jpg"
         alt="Event"
         className="rounded-lg"

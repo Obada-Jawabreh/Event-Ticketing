@@ -19,13 +19,14 @@ const StyledSearchInput = styled.input`
   width: 100%;
 `;
 
-function SearchInput() {
+// eslint-disable-next-line react/prop-types
+function SearchInput({ onChange }) {
   return (
     <SearchContainer className="gap-2">
-      <div className=" bg-custom-red h-10 align-baseline content-center px-3 rounded-md">
+      <div className=" bg-custom-red h-10 align-baseline content-center px-3 rounded-md hover:">
         <SearchSVG />
       </div>
-      <StyledSearchInput placeholder="Search..." />
+      <StyledSearchInput placeholder="Search... " onChange={onChange} />
     </SearchContainer>
   );
 }
