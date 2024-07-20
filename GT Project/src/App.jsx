@@ -7,6 +7,7 @@ import Checkout from "./Pages/Check out";
 import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
+import ProfileSettings from "./Pages/Profile.jsx";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="catalog/Details" element={<Details />} />
+          <Route path="/profile" element={<ProfileSettings />} />
         </Routes>
         <Foot />
       </BrowserRouter>
