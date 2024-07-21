@@ -5,6 +5,7 @@ import {
   createUser,
   signInWithPopup,
   GoogleAuthProvider,
+  storage,
 } from "./../FirebaseConfig/Config.jsx";
 import axios from "axios";
 import Form from "../Components/Form/Form";
@@ -105,6 +106,12 @@ const SignUpComponent = () => {
               type: "password",
               value: confirmPassword,
               onChange: (e) => setConfirmPassword(e.target.value),
+            },
+            {
+              label: "Phone Number",
+              name: "phone",
+              type: "text",
+              placeholder: "07********",
             },
           ]}
           subitBtn={"Sign Up"}
