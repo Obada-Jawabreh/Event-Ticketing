@@ -88,63 +88,66 @@ const EventDetails = () => {
             </div>
           </div>
           {/* card details */}
-          <div className=" text-white p-6 h-fit rounded-lg border-2 border-[#ff0055] w-full">
-            <div id="avilabel" className="flex items-center ">
-              {event.numTickets ? (
-                <span className="text-zinc-400">
-                  Available: {event.numTickets}{" "}
-                </span>
-              ) : (
-                <span className="text-red-400">Sold out</span>
-              )}
-            </div>
+          <div className="flex flex-col	">
+            <div className=" text-white p-6 h-fit rounded-lg border-2 border-[#ff0055] w-full">
+              <div id="avilabel" className="flex items-center ">
+                {event.numTickets ? (
+                  <span className="text-zinc-400">
+                    Available: {event.numTickets}{" "}
+                  </span>
+                ) : (
+                  <span className="text-red-400">Sold out</span>
+                )}
+              </div>
 
-            <hr className="border-zinc-500 mb-4" />
+              <hr className="border-zinc-500 mb-4" />
 
-            <div className="flex justify-between items-center">
-              <span className="text-2xl font-semibold">{event.price} JD</span>
-              <button
-                className="bg-custom-red text-white py-2 px-4 rounded-lg hover:bg-custom-red-hover/80"
-                onClick={handelSelect}
-              >
-                Select Ticket
-              </button>
-            </div>
-
-            <div className="flex items-center mt-4">
-              <div className="flex items-center">
+              <div className="flex justify-between items-center">
+                <span className="text-2xl font-semibold">{event.price} JD</span>
                 <button
-                  onClick={handleDecrease}
-                  className="text-white bg-[#ff0055] px-2 py-1 rounded-l-lg"
+                  className="bg-custom-red text-white py-2 px-4 rounded-lg hover:bg-custom-red-hover/80"
+                  onClick={handelSelect}
                 >
-                  -
-                </button>
-                <span className="mx-4 text-lg">{count}</span>
-                <button
-                  onClick={handleIncrease}
-                  className="text-white bg-[#ff0055] px-2 py-1 rounded-r-lg"
-                >
-                  +
+                  Select Ticket
                 </button>
               </div>
-              <span className="text-lg mx-8">{totalPrice} JD</span>
-            </div>
 
-            <hr className="border-zinc-500 mb-4 mt-9" />
-            <div className="flex items-center mb-2">
-              <img
-                aria-hidden="true"
-                alt="calendar-icon"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMBJREFUSEtjZKAxYKSx+Qx4LfjPy/sf5ADGz5+xqiMkD9aLzweEDCAkj2HBf15efwYGhg4GBgYNMoPuOgMjYwnjp0/bYPpRfPCfl/cJAwODNJmGw7TdY/z8WRmXBeAwpxQgxxm6D+hjAa5UQ8hn2CIdqw+GjwXoXiaVjy0foORcUg0cjQMGUoNsNA4wMvYgSEU8PA8ZGBnlCJU5BOQfMH7+rIiruAZVOJ0MDAzqZFpyiYGRsRJnhUOmoXi10bxVAQDOUr4ZXgKLyQAAAABJRU5ErkJggg=="
-                className="mr-2 "
-              />
-              <span className="text-zinc-400">
-                Start Date : {event.startDate}
+              <div className="flex items-center mt-4">
+                <div className="flex items-center">
+                  <button
+                    onClick={handleDecrease}
+                    className="text-white bg-[#ff0055] px-2 py-1 rounded-l-lg"
+                  >
+                    -
+                  </button>
+                  <span className="mx-4 text-lg">{count}</span>
+                  <button
+                    onClick={handleIncrease}
+                    className="text-white bg-[#ff0055] px-2 py-1 rounded-r-lg"
+                  >
+                    +
+                  </button>
+                </div>
+                <span className="text-lg mx-8">{totalPrice} JD</span>
+              </div>
+
+              <hr className="border-zinc-500 mb-4 mt-9" />
+              <div className="flex items-center mb-2">
+                <img
+                  aria-hidden="true"
+                  alt="calendar-icon"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMBJREFUSEtjZKAxYKSx+Qx4LfjPy/sf5ADGz5+xqiMkD9aLzweEDCAkj2HBf15efwYGhg4GBgYNMoPuOgMjYwnjp0/bYPpRfPCfl/cJAwODNJmGw7TdY/z8WRmXBeAwpxQgxxm6D+hjAa5UQ8hn2CIdqw+GjwXoXiaVjy0foORcUg0cjQMGUoNsNA4wMvYgSEU8PA8ZGBnlCJU5BOQfMH7+rIiruAZVOJ0MDAzqZFpyiYGRsRJnhUOmoXi10bxVAQDOUr4ZXgKLyQAAAABJRU5ErkJggg=="
+                  className="mr-2 "
+                />
+                <span className="text-zinc-400">
+                  Start Date : {event.startDate}
+                </span>
+              </div>
+              <span className="text-zinc-400 ml-8">
+                End Date : {event.endDate}
               </span>
             </div>
-            <span className="text-zinc-400 ml-8">
-              End Date : {event.endDate}
-            </span>
+            <p className="p-6    lg:ml-7 mb-8 text-lg">{masseage}</p>
           </div>
         </main>
       </div>
