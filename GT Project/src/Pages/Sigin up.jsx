@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import image1 from './../images/Ticket1.png';
+import image2 from './../images/Ticket2.png';
+import image3 from './../images/Ticket3.png';
 import {
   auth,
   dbURL,
@@ -43,7 +46,7 @@ const SignUpComponent = () => {
       localStorage.setItem("user", JSON.stringify(user.uid));
       navigate("/");
       resetForm();
-      console.log("the phone number ",phone);
+      
     } catch (error) {
       setError(error.message);
       console.error("Error signing up:", error.message);
@@ -75,8 +78,32 @@ console.log(user);
       console.error("Error signing in with Google:", error.message);
     }
   };
+
+  const ImageSlider = () => {
+    const images = [image1,image2,image3];
+
+  
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 1800);
+  
+      return () => clearInterval(interval);
+    }, [images.length]);
+  
+    return (
+      <img
+        src={images[currentImageIndex]}
+        alt="Event"
+        className="rounded-lg invisible lg:visible"
+        style={{ width: "80%", height: "auto"  }}
+      />
+    );
+  };
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-24 gap-12 h-screen justify-center content-start py-24">
+    <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-24 gap-12 h-screen justify-center content-start py-10">
       <div className="flex flex-col gap-6">
         <Form
           className="p-24"
@@ -134,12 +161,7 @@ console.log(user);
           Sign Up with Google
         </GoogleBtn>
       </div>
-      <img
-        src="https://i.pinimg.com/564x/89/d9/8d/89d98d4048d9700df7dda17fdb4c073a.jpg"
-        alt="Event"
-        className="rounded-lg invisible lg:visible"
-        style={{ width: "100%", height: "auto" }}
-      />
+  <ImageSlider/>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );

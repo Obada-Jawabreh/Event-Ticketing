@@ -12,6 +12,7 @@ import HomeComponent from "./Pages/Home.jsx";
 import ContactUs from "./Pages/Contact us.jsx";
 
 function App() {
+
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile" element={<ProfileSettings />} />
           <Route path="/contact" element={<ContactUs />} />
         </Routes>
+
         <Foot />
       </BrowserRouter>
     </div>
