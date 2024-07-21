@@ -8,10 +8,10 @@ const config = {
         black: "#221B2C",
         blk: "#191223",
         pin: "#FF204E",
-        "prim-dark": "#221B2C",
-        "second-dark": "#31273F",
+        "prim-dark": "#0F041C",
+        "second-dark": "#1C1128",
         "ter-dark": "#423760",
-        "custom-red": "#FF204E",
+        "custom-red": "#C4E900",
         "custom-red-hover": "#d4054c",
       },
       width: {
@@ -20,6 +20,8 @@ const config = {
       backgroundImage: {
         "gradient-four-colors":
           "linear-gradient(220deg, rgba(49,39,63,1) -1%, rgba(78,67,118,0.6083683473389356) 93%)",
+        "gradient-button":
+          "linear-gradient (220deg, rgba(182, 17, 107, 1)100% , rgba(59, 21, 120, 1))100%",
       },
     },
   },

@@ -64,3 +64,14 @@ export const SRedirectLabel = styled.span`
 export const SRedirectLink = styled(Link)`
   color: #ff204e;
 `;
+export const STextArea = styled.textarea`
+  outline: none;
+  /* height: 40px; */
+  padding: 0px 20px;
+  align-items: center;
+  border-radius: 8px;
+  background: #4a3b5f;
+  color: #fff;
+  width: 100%;
+  height: 100px;
+`;

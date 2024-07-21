@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Catalog from "./Pages/Catalog";
@@ -9,21 +8,28 @@ import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
 import ProfileSettings from "./Pages/Profile.jsx";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-
+import HomeComponent from "./Pages/Home.jsx";
+import ContactUs from "./Pages/Contact us.jsx";
+import Home from "./Pages/NewHome.jsx";
 function App() {
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
         <Nav />
+        {/* <HomeComponent /> /}
+        {/ <Checkout /> */}
         <Routes>
+          <Route path="/Home" element={<Home />} />
+          <Route path="/" element={<HomeComponent />} />
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="catalog/Details" element={<Details />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfileSettings />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
+
         <Foot />
       </BrowserRouter>
     </div>
