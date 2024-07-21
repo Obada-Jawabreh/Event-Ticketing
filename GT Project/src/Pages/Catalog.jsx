@@ -42,6 +42,7 @@ function Catalog() {
   };
 
   const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
+  console.log(currentEvents)
 
   return (
     <>
@@ -82,6 +83,7 @@ function Catalog() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6">
           {currentEvents.map((event) => (
+            !event.isDeleted &&
             <TicketCard
               key={event.id}
               name={event.name}
@@ -90,7 +92,7 @@ function Catalog() {
               price={event.price}
               eventId={event.id}
               img={event.image}
-            />
+            /> 
           ))}
         </div>
 
