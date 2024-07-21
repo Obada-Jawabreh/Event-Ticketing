@@ -3,8 +3,8 @@ import FetchEventById from "../Hooks/getEventByID";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const EventDetails = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const EventDetails = () => {
 
   const handleIncrease = () => {
     if (count < event.numTickets) setCount(count + 1);
-    if(count>0 && count==event.numTickets){
+    if (count > 0 && count == event.numTickets) {
       Swal.fire({
         title: "The max number of tickets",
         showClass: {
@@ -54,15 +54,15 @@ const EventDetails = () => {
             animate__animated
             animate__fadeInUp
             animate__faster
-          `
+          `,
         },
         hideClass: {
           popup: `
             animate__animated
             animate__fadeOutDown
             animate__faster
-          `
-        }
+          `,
+        },
       });
     }
   };
@@ -87,15 +87,15 @@ const EventDetails = () => {
       Swal.fire({
         title: "Sorry!",
         text: "Please select the number of tickets",
-        icon: "question"
-      })
-   ;
-    } else   Swal.fire({
-      title: 'Sorry!',
-      text: 'The number of available tickets has sold out',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    })
+        icon: "question",
+      });
+    } else
+      Swal.fire({
+        title: "Sorry!",
+        text: "The number of available tickets has sold out",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
   };
   if (!event) return <p>Loading...</p>;
 
