@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Catalog from "./Pages/Catalog";
@@ -8,13 +9,13 @@ import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
 import ProfileSettings from "./Pages/Profile.jsx";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App() {
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
         <Nav />
-        {/* <Checkout /> */}
         <Routes>
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
