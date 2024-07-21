@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { getStorage } from "firebase/storage"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBV03hfp2WQ-wph7B8DI7ThdA6j0phrTU4",
@@ -23,6 +24,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const storage = getStorage(app); 
 const dbURL =
   "https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app";
 const auth = getAuth(app);
@@ -39,4 +41,5 @@ export {
   sendEmailLink,
   loginFirebase,
   GoogleAuthProvider,
+  storage
 };
