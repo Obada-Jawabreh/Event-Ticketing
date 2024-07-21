@@ -1,5 +1,4 @@
 import { Carousel } from "flowbite-react";
-
 import hero from '../images/1.png';
 import hero2 from '../images/2.png';
 import hero3 from '../images/3.png';
@@ -19,56 +18,47 @@ export default function HomeComponent() {
     {
       title: "Special Event 1",
       description: "Join us for a special event featuring unique activities.",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/project-4-bbf17.appspot.com/o/Apex%20Legends%2F1340730.jpeg?alt=media&token=2a257251-0585-4bb6-af4e-41fe4c824a28",
-      previous_price: "100$",
-      current_price: "70$",
+      image: "https://firebasestorage.googleapis.com/v0/b/project-4-bbf17.appspot.com/o/Apex%20Legends%2F1340730.jpeg?alt=media&token=2a257251-0585-4bb6-af4e-41fe4c824a28",
+      previous_price: '100$',
+      current_price: '70$',
     },
     {
       title: "Special Event 2",
       description: "Don’t miss out on this exclusive opportunity.",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/project-4-bbf17.appspot.com/o/Magic%3A%20The%20Gathering%2F1305445.jpg?alt=media&token=c7dcd886-979b-4d8f-8e2a-2cd5df55bfe8",
-      previous_price: "180$",
-      current_price: "75$",
+      image: "https://firebasestorage.googleapis.com/v0/b/project-4-bbf17.appspot.com/o/Magic%3A%20The%20Gathering%2F1305445.jpg?alt=media&token=c7dcd886-979b-4d8f-8e2a-2cd5df55bfe8",
+      previous_price: '180$',
+      current_price: '75$',
     },
     {
       title: "Special Event 3",
       description: "Experience something extraordinary with us.",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/project-4-bbf17.appspot.com/o/Smash%20World%20Tour%2Fsmash-world-tour_feature.jpg?alt=media&token=3bf7da7e-199a-4135-9644-1ca7a2d71095",
-      previous_price: "200$",
-      current_price: "100$",
-    },
+      image: "https://firebasestorage.googleapis.com/v0/b/project-4-bbf17.appspot.com/o/Smash%20World%20Tour%2Fsmash-world-tour_feature.jpg?alt=media&token=3bf7da7e-199a-4135-9644-1ca7a2d71095",
+      previous_price: '200$',
+      current_price: '100$',
+    }
   ];
 
   return (
     <div className="min-h-screen h-full ml-20 mr-20 mb-12   mt-10">
       <Carousel className="h-full rounded-lg h-[400px]">
-
         <img src={hero} alt="..." className="rounded-xl" />
         <img src={hero2} alt="..." className="rounded-xl" />
         <img src={hero3} alt="..." className="rounded-xl" />
       </Carousel>
-
-      <h2 className="text-2xl font-bold mt-12 text-white">
-        Currently Trending Games
-      </h2>
+      
+      <h2 className="text-2xl font-bold mt-12 text-white">Currently Trending Games</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-        {events &&
-          events
-            .slice(0, 3)
-            .map((event) => (
-              <TicketCard
-                key={event.id}
-                name={event.name}
-                startDate={event.startDate}
-                endDate={event.endDate}
-                price={event.price}
-                eventId={event.id}
-                img={event.image}
-              />
-            ))}
+        {events && events.slice(0, 3).map((event) => (
+          <TicketCard
+            key={event.id}
+            name={event.name}
+            startDate={event.startDate}
+            endDate={event.endDate}
+            price={event.price}
+            eventId={event.id}
+            img={event.image}
+          />
+        ))}
       </div>
 
       <h2 className="text-2xl font-bold mt-12 text-white">Upcoming Games</h2>
@@ -85,7 +75,6 @@ export default function HomeComponent() {
           />
         ))}
       </div>
-
 
       <h2 className="text-2xl font-bold mt-12 text-white">Most Liked</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -118,12 +107,10 @@ export default function HomeComponent() {
               Select the number of tickets you want and click "Buy Now".
              Complete the checkout process by entering your payment and contact information.
              Once your purchase is complete, you will receive a confirmation email with your e-tickets.
-
               </p>
               
             </Accordion.Content>
           </Accordion.Panel>
-
           <Accordion.Panel className='border-black focus:ring-transparent'>
             <Accordion.Title className='text-white text-sm bg-blk hover:bg-blk focus:ring-transparent'>Can I get a refund or exchange my tickets if I can’t attend the event?</Accordion.Title>
             <Accordion.Content>
