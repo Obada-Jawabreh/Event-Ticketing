@@ -19,6 +19,7 @@ const SignUpComponent = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState();
   const [error, setError] = useState("");
 
   const handleSignUp = async (form, resetForm) => {
@@ -30,17 +31,19 @@ const SignUpComponent = () => {
     }
 
     try {
-      const userCredential = await createUser(auth, form.email, form.password);
+      const userCredential = await createUser(auth, form.email, form.password , form.phone);
       const user = userCredential.user;
 
       await axios.put(`${dbURL}/users/${user.uid}.json`, {
         name: form.name,
         email: form.email,
         id: user.uid,
+        phone : form.phone
       });
       localStorage.setItem("user", JSON.stringify(user.uid));
       navigate("/");
       resetForm();
+      console.log("the phone number ",phone);
     } catch (error) {
       setError(error.message);
       console.error("Error signing up:", error.message);
@@ -62,8 +65,9 @@ const SignUpComponent = () => {
         name: user.displayName || "",
         email: user.email || "",
         id: user.uid,
+        phone:user.phoneNumber || "",
       };
-
+console.log(user);
       await axios.put(`${dbURL}/users/${user.uid}.json`, userData);
       navigate("/");
     } catch (error) {
@@ -71,7 +75,6 @@ const SignUpComponent = () => {
       console.error("Error signing in with Google:", error.message);
     }
   };
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-24 gap-12 h-screen justify-center content-start py-24">
       <div className="flex flex-col gap-6">
@@ -111,6 +114,8 @@ const SignUpComponent = () => {
               label: "Phone Number",
               name: "phone",
               type: "text",
+              value:phone,
+              onChange:(e)=>{setPhone(e.target.value)},
               placeholder: "07********",
             },
           ]}
