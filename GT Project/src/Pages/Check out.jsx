@@ -149,11 +149,11 @@ function Checkout() {
           </PayPalScriptProvider>
         </div>
       </div>
-      <ConfirmationPopup
+      {/* <ConfirmationPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
         onConfirm={handleConfirm}
-      />
+      /> */}
     </div>
   );
 }
