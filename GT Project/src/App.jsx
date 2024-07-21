@@ -8,7 +8,8 @@ import Nav from "./Components/Layout/Navbar.jsx";
 import Foot from "./Components/Layout/Footer.jsx";
 import Details from "./Pages/Details.jsx";
 import ProfileSettings from "./Pages/Profile.jsx";
-import HomeComponent from './Pages/Home.jsx'; 
+import HomeComponent from "./Pages/Home.jsx";
+import ContactUs from "./Pages/Contact us.jsx";
 
 function App() {
   return (
@@ -18,13 +19,14 @@ function App() {
         {/* <HomeComponent /> */}
         {/* <Checkout /> */}
         <Routes>
-        <Route path="/" element ={<HomeComponent />}/>
+          <Route path="/" element={<HomeComponent />} />
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="catalog/Details" element={<Details />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfileSettings />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
         <Foot />
       </BrowserRouter>
