@@ -3,6 +3,10 @@ import { dbURL } from "../FirebaseConfig/Config";
 import FetchEvents from "./../Hooks/getEvents.jsx";
 import { useState } from "react";
 import TicketCard from "../Components/TicketCard.jsx";
+import { Carousel } from "flowbite-react";
+import hero from "../images/1.png";
+import hero2 from "../images/2.png";
+import hero3 from "../images/3.png";
 
 function Catalog() {
   // fetch events data from firebase
@@ -42,15 +46,29 @@ function Catalog() {
   };
 
   const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
-  console.log(currentEvents)
+  console.log(currentEvents);
 
   return (
     <>
+      <Carousel className="h-full rounded-xl flex-grow h-[400px]">
+        <img src={hero} alt="..." className="rounded-xl" />
+        <img src={hero2} alt="..." className="rounded-xl" />
+        <img src={hero3} alt="..." className="rounded-xl" />
+      </Carousel>
+
       <div className="bg-prim-dark pt-12 mx-8 sm:mx-8 lg:mx-12 xl:mx-24 mb-40">
         <div
           id="SearchBar"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6 py-6"
         >
+          {/* <div
+            id="gradiant"
+            className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  bg-indigo-800  "
+          ></div>
+          <div
+            id="gradiant"
+            className="absolute bottom-0 right-100 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl bg-pink-500"
+          ></div> */}
           <SearchInput
             className="w-full"
             placeholder="search"
@@ -60,7 +78,7 @@ function Catalog() {
             }}
           />
           <div id="filter" className="content-center">
-            <div id="location" className="flex space-x-4">
+            <div id="location" className="flex space-x-4 ">
               {["London", "Dubai", "Toronto"].map((location) => (
                 <button
                   key={location}
@@ -82,18 +100,20 @@ function Catalog() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6">
-          {currentEvents.map((event) => (
-            !event.isDeleted &&
-            <TicketCard
-              key={event.id}
-              name={event.name}
-              startDate={event.startDate}
-              endDate={event.endDate}
-              price={event.price}
-              eventId={event.id}
-              img={event.image}
-            /> 
-          ))}
+          {currentEvents.map(
+            (event) =>
+              !event.isDeleted && (
+                <TicketCard
+                  key={event.id}
+                  name={event.name}
+                  startDate={event.startDate}
+                  endDate={event.endDate}
+                  price={event.price}
+                  eventId={event.id}
+                  img={event.image}
+                />
+              )
+          )}
         </div>
 
         {/* Pagination Controls */}

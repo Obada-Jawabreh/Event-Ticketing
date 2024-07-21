@@ -12,7 +12,7 @@ function Nav() {
   };
 
   return (
-    <Navbar fluid rounded className="bg-blk px-12 lg:px-24">
+    <Navbar fluid rounded className="bg-blk px-12 lg:px-24 relative z-10">
       <Navbar.Brand>
         {/* <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" /> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
