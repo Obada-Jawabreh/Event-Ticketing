@@ -23,7 +23,7 @@ const StyledSearchInput = styled.input`
 function SearchInput({ onChange }) {
   return (
     <SearchContainer className="gap-2">
-      <div className=" bg-custom-red h-10 align-baseline content-center px-3 rounded-md hover:">
+      <div className=" bg-gradient-button h-10 align-baseline content-center px-3 rounded-md hover:">
         <SearchSVG />
       </div>
       <StyledSearchInput placeholder="Search... " onChange={onChange} />

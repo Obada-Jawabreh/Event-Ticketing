@@ -9,7 +9,7 @@ const StyledMainButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 8px;
-  background: #ff204e;
+  background: #c141f8;
   padding: 12px 20px;
   width: 100%;
 
@@ -21,7 +21,11 @@ const StyledMainButton = styled.button`
 // eslint-disable-next-line react/prop-types
 function MainButton({ children, id, onClick }) {
   return (
-    <StyledMainButton id={id} onClick={onClick}>
+    <StyledMainButton
+      id={id}
+      onClick={onClick}
+      className="bg-gradient-button font-sans "
+    >
       {children}
     </StyledMainButton>
   );
