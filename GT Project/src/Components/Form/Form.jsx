@@ -25,6 +25,7 @@ function Form({
   redirect,
   onChange,
   withEvent,
+  placeholder
 }) {
   const initialForm = prepareForm(formArr);
 
@@ -49,7 +50,7 @@ function Form({
   return (
     <SForm onSubmit={onSubmitHandler}>
       <SFormTitle>{title}</SFormTitle>
-      {formArr.map(({ label, name, type, value, onChange }, index) => (
+      {formArr.map(({ label, name, type, value, onChange,placeholder }, index) => (
         <SFormControl key={index}>
           <SLable htmlFor={name}>{label}</SLable>
           <SInput
@@ -58,6 +59,7 @@ function Form({
             name={name}
             type={type}
             value={value || form[name]}
+            placeholder={placeholder}
             onChange={(e) => onChangeHandler(e)}
           />
         </SFormControl>

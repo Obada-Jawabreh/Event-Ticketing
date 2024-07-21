@@ -10,6 +10,7 @@ function Nav() {
     localStorage.removeItem("user");
     navigate("/");
   };
+
   return (
     <Navbar fluid rounded className="bg-blk px-12 lg:px-24">
       <Navbar.Brand>
@@ -39,9 +40,11 @@ function Nav() {
         <Navbar.Link className="text-white text-base font-sans " href="/">
           Home
         </Navbar.Link>
-        <Navbar.Link className="text-white text-base font-sans" href="#">
-          Tickets
-        </Navbar.Link>
+        <Link to="/catalog">
+          <Navbar.Link className="text-white text-base font-sans" href="#">
+            Tickets
+          </Navbar.Link>
+        </Link>
         <Navbar.Link className="text-white text-base font-sans" href="#">
           Event Legends
         </Navbar.Link>
