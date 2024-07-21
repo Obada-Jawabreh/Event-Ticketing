@@ -3,8 +3,10 @@ import FetchEventById from "../Hooks/getEventByID";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+
 const EventDetails = () => {
-  let [masseage, setMassage] = useState("");
   const navigate = useNavigate();
   const eventId = JSON.parse(localStorage.getItem("Event id"));
   console.log("the id ", eventId);
@@ -44,6 +46,25 @@ const EventDetails = () => {
 
   const handleIncrease = () => {
     if (count < event.numTickets) setCount(count + 1);
+    if(count>0 && count==event.numTickets){
+      Swal.fire({
+        title: "The max number of tickets",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+    }
   };
 
   const handleDecrease = () => {
@@ -56,13 +77,26 @@ const EventDetails = () => {
     if (count > 0) {
       localStorage.setItem("count tickets", JSON.stringify(count));
       localStorage.setItem("price tickets", JSON.stringify(totalPrice));
+      localStorage.setItem(
+        "all count tickets",
+        JSON.stringify(event.numTickets)
+      );
 
       navigate("/checkout");
     } else if (event.numTickets) {
-      setMassage("Please select the number of tickets");
-    } else setMassage("Sorry, the number of available tickets has sold out");
+      Swal.fire({
+        title: "Sorry!",
+        text: "Please select the number of tickets",
+        icon: "question"
+      })
+   ;
+    } else   Swal.fire({
+      title: 'Sorry!',
+      text: 'The number of available tickets has sold out',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    })
   };
-
   if (!event) return <p>Loading...</p>;
 
   return (
@@ -147,7 +181,6 @@ const EventDetails = () => {
                 End Date : {event.endDate}
               </span>
             </div>
-            <p className="p-6    lg:ml-7 mb-8 text-lg">{masseage}</p>
           </div>
         </main>
       </div>
