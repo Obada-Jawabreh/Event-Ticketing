@@ -33,19 +33,26 @@ function Nav() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link className="text-white text-base font-sans " href="/">
-          Home
-        </Navbar.Link>
+        <Link to="/home">
+          <Navbar.Link className="text-white text-base font-sans " href="/">
+            Home
+          </Navbar.Link>
+        </Link>
+        <Link to="/about">
+          <Navbar.Link className="text-white text-base font-sans " href="/">
+            About us
+          </Navbar.Link>
+        </Link>
         <Link to="/catalog">
           <Navbar.Link className="text-white text-base font-sans" href="#">
             Tickets
           </Navbar.Link>
         </Link>
-       
-
-        <Navbar.Link className="text-white text-base font-sans" href="#">
-          Quest for Help
-        </Navbar.Link>
+        <Link to="/contact">
+          <Navbar.Link className="text-white text-base font-sans" href="#">
+            Get In Touch
+          </Navbar.Link>
+        </Link>
       </Navbar.Collapse>
     </Navbar>
   );

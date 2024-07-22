@@ -12,7 +12,7 @@ const config = {
         "second-dark": "#261736",
         "ter-dark": "#423760",
         "custom-red": "#8C07C5",
-        "custom-red-hover": "#d4054c",
+        "custom-red-hover": "#8c07c5",
         "text-prim": "#cabffd",
         "text-second": "#785B96",
       },
