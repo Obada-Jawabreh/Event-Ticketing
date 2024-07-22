@@ -11,6 +11,7 @@ import ProfileSettings from "./Pages/Profile.jsx";
 import HomeComponent from "./Pages/Home.jsx";
 import ContactUs from "./Pages/Contact us.jsx";
 import Home from "./Pages/NewHome.jsx";
+import Db from "./Pages/Dashboard.jsx"
 function App() {
   return (
     <div className="bg-prim-dark">
@@ -28,6 +29,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfileSettings />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/dhashboard" element={<Db />} />
         </Routes>
 
         <Foot />
