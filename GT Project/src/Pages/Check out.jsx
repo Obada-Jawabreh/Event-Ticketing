@@ -61,12 +61,12 @@ function Checkout() {
       setDiscount(discountValue);
       const newPrice = tprice - discountValue;
       setFinalPrice(newPrice);
-      localStorage.setItem("finalPrice", newPrice); // Store the final price in localStorage
+      localStorage.setItem("finalPrice", newPrice);
     } else {
       alert("Invalid or expired coupon code.");
       setDiscount(0);
       setFinalPrice(tprice);
-      localStorage.setItem("finalPrice", tprice); // Store the original price in localStorage
+      localStorage.setItem("finalPrice", tprice);
     }
   };
 
@@ -156,7 +156,7 @@ function Checkout() {
                     style={{ layout: "horizontal", shape: "rect" }}
                     createOrder={(data, actions) => {
                       const storedFinalPrice =
-                        localStorage.getItem("finalPrice"); // Get the final price from localStorage
+                        localStorage.getItem("finalPrice");
                       console.log(
                         "Creating order with final price:",
                         storedFinalPrice
@@ -171,7 +171,7 @@ function Checkout() {
                                 : "Event",
                               amount: {
                                 currency_code: "USD",
-                                value: storedFinalPrice, // Use the stored final price
+                                value: storedFinalPrice,
                               },
                             },
                           ],
