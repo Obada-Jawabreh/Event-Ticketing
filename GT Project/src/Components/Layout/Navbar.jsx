@@ -41,9 +41,7 @@ function Nav() {
             Tickets
           </Navbar.Link>
         </Link>
-        <Navbar.Link className="text-white text-base font-sans" href="#">
-          Event Legends
-        </Navbar.Link>
+       
 
         <Navbar.Link className="text-white text-base font-sans" href="#">
           Quest for Help
