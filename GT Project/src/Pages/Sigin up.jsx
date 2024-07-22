@@ -24,7 +24,8 @@ const SignUpComponent = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState();
   const [error, setError] = useState("");
-
+  const [isActive, setActive] = useState(true);
+  
   const handleSignUp = async (form, resetForm) => {
     setError("");
 
@@ -34,14 +35,15 @@ const SignUpComponent = () => {
     }
 
     try {
-      const userCredential = await createUser(auth, form.email, form.password , form.phone);
+      const userCredential = await createUser(auth, form.email, form.password , form.phone , isActive);
       const user = userCredential.user;
 
       await axios.put(`${dbURL}/users/${user.uid}.json`, {
         name: form.name,
         email: form.email,
         id: user.uid,
-        phone : form.phone
+        phone : form.phone,
+        isActive:true,
       });
       localStorage.setItem("user", JSON.stringify(user.uid));
       navigate("/");

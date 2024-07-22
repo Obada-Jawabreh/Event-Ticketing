@@ -10,9 +10,8 @@ import Details from "./Pages/Details.jsx";
 import ProfileSettings from "./Pages/Profile.jsx";
 import HomeComponent from "./Pages/Home.jsx";
 import ContactUs from "./Pages/Contact us.jsx";
-
+import Home from "./Pages/NewHome.jsx";
 function App() {
-
   return (
     <div className="bg-prim-dark">
       <BrowserRouter>
@@ -20,6 +19,7 @@ function App() {
         {/* <HomeComponent /> */}
         {/* <Checkout /> */}
         <Routes>
+          <Route path="/Home" element={<Home />} />
           <Route path="/" element={<HomeComponent />} />
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
