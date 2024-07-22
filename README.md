@@ -35,6 +35,6 @@ To bring Gtickets to life, we leveraged a variety of tools and technologies:
 - **Agile Tools**: Including Trello for task management, and regular standup meetings for progress tracking.
 
 ## Links:
-**trello**: https://trello.com/b/2sGsbyHJ/gaming-ticket
-**Git hub** : https://github.com/Obada-Jawabreh/Event-Ticketing.git
-**Figma** : https://www.figma.com/design/HrKpf2T4F82WI18k5Whk3j/E-gamming-tiket?node-id=4-437&t=EDgWOvTERKnTsV6P-0
+- **trello**: https://trello.com/b/2sGsbyHJ/gaming-ticket
+- **Git hub** : https://github.com/Obada-Jawabreh/Event-Ticketing.git
+- **Figma** : https://www.figma.com/design/HrKpf2T4F82WI18k5Whk3j/E-gamming-tiket?node-id=4-437&t=EDgWOvTERKnTsV6P-0
