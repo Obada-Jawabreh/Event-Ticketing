@@ -1,9 +1,7 @@
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { dbURL } from "../FirebaseConfig/Config";
 import TicketCard from "../Components/TicketCard.jsx";
-import MainButton from "../Components/Buttons/MainButton";
 import { useNavigate } from "react-router-dom";
 import hero4 from "../images/4.png";
 
@@ -22,7 +20,7 @@ const ProfileSettings = () => {
     if (userId) {
       const fetchUserData = async () => {
         try {
-          // هون منجيب بيانات المستخدم
+          // Fetch user data
           const userResponse = await axios.get(`${dbURL}/users/${userId}.json`);
           if (userResponse.data) {
             const data = userResponse.data;
@@ -30,14 +28,15 @@ const ProfileSettings = () => {
             setName(data.name || '');
             setEmail(data.email || '');
           } else {
-            console.log('No data available');
+            console.log('No user data available');
           }
 
-          // هون منجيب المشتريات الخاصة بالمستخدم
+          // Fetch user purchases
           const purchasesResponse = await axios.get(`${dbURL}/purchases/${userId}.json`);
           if (purchasesResponse.data) {
             const data = purchasesResponse.data;
-            setPurchases(Object.values(data)); // منحول البيانات  لارري  بشكل عام مو قيمي معينة جوا
+            setPurchases(Object.values(data));
+            console.log("Purchases: ", Object.values(data)); // Log purchase data
           } else {
             console.log('No purchases available');
           }
@@ -140,18 +139,22 @@ const ProfileSettings = () => {
           <div className="p-6 bg-prim-dark">
             <h4 className="text-white font-semibold mb-4">Your Purchases</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {purchases.map((purchase) => (
-                <TicketCard
-                  key={purchase.event}
-                  name={purchase.event.name}
-                  startDate={purchase.event.startDate}
-                  endDate={purchase.event.endDate}
-                  price={purchase.price}
-                  eventId={purchase.event.id}
-                  img={purchase.event.image}
-                  handleSelectTicket={handleSelectTicket}
-                />
-              ))}
+              {purchases.length > 0 ? (
+                purchases.map((purchase) => (
+                  <TicketCard
+                    key={purchase.event.id}
+                    name={purchase.event.name}
+                    startDate={purchase.event.startDate}
+                    endDate={purchase.event.endDate}
+                    price={purchase.price}
+                    eventId={purchase.event.id}
+                    img={purchase.event.image}
+                    handleSelectTicket={handleSelectTicket}
+                  />
+                ))
+              ) : (
+                <p className="text-white">No purchases found.</p>
+              )}
             </div>
           </div>
         </div>
@@ -161,6 +164,7 @@ const ProfileSettings = () => {
 };
 
 export default ProfileSettings;
+
 
 
 
