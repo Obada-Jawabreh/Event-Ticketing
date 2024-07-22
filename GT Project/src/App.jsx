@@ -11,7 +11,7 @@ import ProfileSettings from "./Pages/Profile.jsx";
 import HomeComponent from "./Pages/Home.jsx";
 import ContactUs from "./Pages/Contact us.jsx";
 import Home from "./Pages/NewHome.jsx";
-
+import Profile from './Pages/Profile.jsx'
 import Db from "./Pages/Dashboard.jsx";
 import AboutUs from "./Pages/AboutUs.jsx";
 import Error404 from "./Pages/Error404.jsx";
@@ -34,7 +34,11 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/Dhashboard" element={<Db />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/Profile" element={<Profile />} />
+
+
           <Route path="*" element={<Error404 />} />
+
         </Routes>
         <Foot />
       </BrowserRouter>
