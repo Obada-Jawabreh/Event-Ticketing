@@ -11,18 +11,17 @@ import ProfileSettings from "./Pages/Profile.jsx";
 import HomeComponent from "./Pages/Home.jsx";
 import ContactUs from "./Pages/Contact us.jsx";
 import Home from "./Pages/NewHome.jsx";
-import Db from "./Pages/Dashboard.jsx"
+import Db from "./Pages/Dashboard.jsx";
+import AboutUs from "./Pages/AboutUs.jsx";
 
 function App() {
   return (
-    <div className="bg-prim-dark">
+    <div className="bg-prim-dark font-sans">
       <BrowserRouter>
         <Nav />
-        {/* <HomeComponent /> /}
-        {/ <Checkout /> */}
         <Routes>
           <Route path="/Home" element={<Home />} />
-          <Route path="/" element={<HomeComponent />} />
+          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SiginUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/catalog" element={<Catalog />} />
@@ -30,9 +29,9 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfileSettings />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/dhashboard" element={<Db />} />
+          <Route path="/dashboard" element={<Db />} />
+          <Route path="/about" element={<AboutUs />} />
         </Routes>
-
         <Foot />
       </BrowserRouter>
     </div>
