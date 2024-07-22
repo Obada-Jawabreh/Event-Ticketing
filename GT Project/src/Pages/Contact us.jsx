@@ -2,20 +2,45 @@ import axios from "axios";
 import Form from "../Components/Form/Form";
 import { useState, useEffect } from "react";
 import { dbURL } from "../FirebaseConfig/Config";
-
+import Swal from "sweetalert2";
 function ContactUs() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [message, setMsg] = useState("");
+  const [dataUser, setUser] = useState({});
+
+  const userData = JSON.parse(localStorage.getItem("user"));
+  console.log("User data from localStorage:", dataUser);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userData) {
+        try {
+          console.log("Fetching data for user:", userData);
+          const response = await axios.get(`${dbURL}/users/${userData}.json`);
+          const data = response.data;
+
+          if (data) {
+            setUser(data);
+            console.log("User data fetched successfully:", data);
+          } else {
+            console.log(`No data found for user with ID: ${userData}`);
+          }
+        } catch (error) {
+          console.error(`Error fetching data for user with ID: ${userData}`, error);
+        }
+      } else {
+        console.log("No user data found in local storage.");
+      }
+    };
+
+    fetchData();
+  }, [dbURL, userData]);
 
   const handleSending = async (event, form, resetForm) => {
     event.preventDefault();
-    const userData = JSON.parse(localStorage.getItem("user"));
-    console.log(userData);
 
-    if (userData) {
-      console.log("User data found in local storage:", userData);
-
+    if (userData && dataUser) {
       const messageData = {
         userName: form.name,
         userEmail: form.email,
@@ -23,14 +48,22 @@ function ContactUs() {
       };
 
       try {
-        await axios.post(`${dbURL}/messages.json`, messageData);
-        console.log("Message sent successfully:", messageData);
-        resetForm();
+        if (dataUser.email === form.email) {
+          await axios.post(`${dbURL}/messages.json`, messageData);
+          console.log("Message sent successfully:", messageData);
+          resetForm();
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Email does not match.",
+          });
+        }
       } catch (error) {
         console.error("Error sending message:", error);
       }
     } else {
-      console.log("No user data found in local storage. Please log in.");
+      console.log("User data not available or no data found in local storage.");
     }
   };
 
