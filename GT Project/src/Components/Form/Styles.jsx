@@ -8,7 +8,7 @@ export const SForm = styled.form`
 `;
 
 export const SFormTitle = styled.span`
-  color: #ff204e;
+  color: #c141f8;
   font-size: 48px;
   font-weight: 600;
 `;
@@ -38,7 +38,7 @@ export const SInput = styled.input`
 
 export const SButton = styled.button`
   border-radius: 8px;
-  background: #ff204e;
+  background: #c141f8;
   height: 40px;
   padding: 0px 20px;
   color: #fff;
@@ -46,6 +46,10 @@ export const SButton = styled.button`
   align-items: center;
   margin-top: 16px;
   width: 100%;
+
+  &:hover {
+    background: #8c07c5;
+  }
 `;
 
 export const SRedirect = styled.div`

@@ -14,7 +14,7 @@ const StyledMainButton = styled.button`
   width: 100%;
 
   &:hover {
-    background: #d4054c;
+    background: #8c07c5;
   }
 `;
 

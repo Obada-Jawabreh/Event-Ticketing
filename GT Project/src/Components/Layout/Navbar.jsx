@@ -2,6 +2,7 @@
 import { json, Link, Navigate } from "react-router-dom";
 import { Button, Navbar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import MainButton from "../Buttons/MainButton";
 // import logo from './images/8.png'
 function Nav() {
   const navigate = useNavigate();
@@ -21,17 +22,12 @@ function Nav() {
       </Navbar.Brand>
       <div className="flex md:order-2">
         {user ? (
-          <Button
-            className="bg-custom-red hover:bg-custom-red-hover "
-            onClick={handelLogout}
-          >
-            Log out
-          </Button>
+          <MainButton onClick={handelLogout}>Log out</MainButton>
         ) : (
           <Link to="/login">
-            <Button className="bg-custom-red hover:bg-custom-red-hover ">
+            <MainButton className="bg-custom-red hover:bg-custom-red-hover ">
               Login
-            </Button>
+            </MainButton>
           </Link>
         )}
         <Navbar.Toggle />
@@ -45,9 +41,7 @@ function Nav() {
             Tickets
           </Navbar.Link>
         </Link>
-        <Navbar.Link className="text-white text-base font-sans" href="#">
-          Event Legends
-        </Navbar.Link>
+       
 
         <Navbar.Link className="text-white text-base font-sans" href="#">
           Quest for Help

@@ -1,202 +1,166 @@
 import React, { useState, useEffect } from "react";
 import ConfirmationPopup from "./Confirm";
 import axios from "axios";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { jsPDF } from "jspdf";
+import { dbURL } from "../FirebaseConfig/Config";
+
 function Checkout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [Cardholder, setcardholder] = useState("");
-  const [CardNumber, setCardNumber] = useState("");
-  const [CVC, setCVC] = useState("");
-  const [Expiry, setExpiry] = useState("");
-  let tuser = localStorage.getItem("user");
-  let tevent = localStorage.getItem("Event id");
+  const [eventDetail, setEventDetail] = useState(null);
+  const initialOptions = {
+    "client-id":
+      "AWrR0dEDBlc9AVYB7E-RbYM8HyZMGiRs_ibLN1lcJXBnv8DhZc1BuvhagRX5ycmsDSNQ3B5TxKya81_v",
+    "enable-funding": "card",
+    "disable-funding": "",
+    "data-sdk-integration-source": "integrationbuilder_sc",
+  };
+  let tuser = JSON.parse(localStorage.getItem("user"));
+  let tevent = parseInt(localStorage.getItem("Event id"));
   let tcount = localStorage.getItem("count tickets");
+  let ttcount = parseInt(tcount);
   let tprice = localStorage.getItem("price tickets");
-  console.log(tuser);
-  console.log(tevent);
-  console.log(tcount);
-  console.log(tprice);
-
+  let talltikets = localStorage.getItem("all count tickets");
+  let ttalltikets = parseInt(talltikets);
+  let count = 0;
+  console.log(typeof tevent);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://fire-base-e5ddc-default-rtdb.europe-west1.firebasedatabase.app/Events/${tevent}.json`
-        );
-        const data = response.data;
+        const response = await axios.get(`${dbURL}/Events/${tevent}.json`);
+        setEventDetail(response.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  });
+  }, [tevent]);
 
-  const addcard = async (e) => {
+  const handleCheckout = (e) => {
     e.preventDefault();
-    const newcard = {
-      Cardholder,
-      CardNumber,
-      Expiry,
-      CVC,
-    };
-    try {
-      const response = await axios.post(
-        `https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users/${z}/card.json`,
-        newcard
-      );
-    } catch {
-      console.error("Error adding ");
-    }
-  };
-  const handleCheckout = () => {
     setIsPopupOpen(true);
   };
 
-  const handleConfirm = () => {
-    // هنا يمكنك إضافة المنطق الخاص بتأكيد عملية الشراء
-    console.log("Checkout confirmed");
+  const handleConfirm = (e) => {
+    e.preventDefault();
+
     setIsPopupOpen(false);
+  };
+  console.log(tuser);
+  const handlePaymentUpload = async (orderDetails) => {
+    let newid = `${tuser}`;
+    const tikets = ttalltikets - tcount;
+    console.log(tikets);
+    const paymentData = {
+      user: tuser,
+      event: tevent,
+      tickets: ttcount,
+      price: tprice,
+      orderDetails,
+    };
+    try {
+      await axios.patch(
+        `${dbURL}/users/${tuser}/Purchases/${count++}.json`,
+        paymentData
+      );
+
+      await axios.put(`${dbURL}/Events/${tevent}/numTickets.json`, tikets);
+    } catch (err) {
+      console.error("Error uploading payment data:", err);
+    }
+  };
+
+  const generatePDF = (orderDetails) => {
+    const doc = new jsPDF();
+    doc.text("Invoice", 10, 10);
+    doc.text(`Name: ${tuser}`, 10, 20);
+    doc.text(`Event: ${eventDetail ? eventDetail.name : "Loading..."}`, 10, 30);
+    doc.text(`Tickets: ${tcount}`, 10, 40);
+    doc.text(`Price: $${tprice}`, 10, 50);
+    doc.text(`Order ID: ${orderDetails.id}`, 10, 60);
+    doc.save("invoice.pdf");
   };
 
   return (
     <div className="bg-gray-900 text-white p-4 md:p-8 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
-        <h2 className="text-xl mb-6 flex items-center">Shopping Continue</h2>
-
-        <div className="bg-gray-800 rounded-lg p-4 mb-4 flex flex-col sm:flex-row items-center">
-          <img
-            src="placeholder.jpg"
-            alt="Event"
-            className="w-16 h-16 rounded mr-4 mb-4 sm:mb-0"
-          />
-          <div className="flex-grow mb-4 sm:mb-0 text-center sm:text-left">
-            <h3 className="font-bold">RIYADH MASTERS X ESPORTS WORLD CUP</h3>
+        {eventDetail ? (
+          <div className="bg-gray-800 rounded-lg p-4 mb-4 ">
+            <img
+              src={eventDetail.image}
+              alt="Event"
+              className="w-full h-30 rounded mr-4 mb-4 sm:mb-0"
+            />
+            <div className="flex-grow mb-4 sm:mb-0 text-center sm:text-left">
+              <h3 className="font-bold">{eventDetail.name}</h3>
+            </div>
+            <div className="flex items-center">
+              <span className="mx-2">tickets num: {tcount} </span>
+            </div>
+            <span className="ml-4">price :${tprice}</span>
           </div>
-          <div className="flex items-center">
-            <span className="mx-2">1</span>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
-          <span className="ml-4">$681</span>
-        </div>
+        ) : (
+          <p>Loading event details...</p>
+        )}
       </div>
       <div className="w-full md:w-1/2 bg-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-6">Let's Make Payment</h2>
-        <form onSubmit={addcard}>
-          <div className="mb-4">
-            <label className="block text-sm mb-2">Cardholder's Name</label>
-            <input
-              type="text"
-              placeholder="User Name"
-              className="w-full bg-gray-700 rounded p-2 pl-10"
-              value={Cardholder}
-              onChange={(e) => setcardholder(e.target.value)}
+        <div className="mt-4">
+          <h2 className="text-xl font-bold mb-2">Or Pay with PayPal</h2>
+          <PayPalScriptProvider options={initialOptions}>
+            <PayPalButtons
+              style={{ layout: "horizontal", shape: "rect" }}
+              createOrder={(data, actions) => {
+                console.log("Creating order...");
+                return actions.order
+                  .create({
+                    intent: "CAPTURE",
+                    purchase_units: [
+                      {
+                        description: eventDetail ? eventDetail.name : "Event",
+                        amount: {
+                          currency_code: "USD",
+                          value: tprice,
+                        },
+                      },
+                    ],
+                  })
+                  .then((orderID) => {
+                    console.log("Order created:", orderID);
+                    return orderID;
+                  })
+                  .catch((err) => {
+                    console.error("Error creating order:", err);
+                  });
+              }}
+              onApprove={(data, actions) => {
+                console.log("Order approved:", data);
+                return actions.order
+                  .capture()
+                  .then((details) => {
+                    console.log("Order details:", details);
+                    alert(
+                      `Transaction completed by ${details.payer.name.given_name}`
+                    );
+                    handlePaymentUpload(details);
+                    generatePDF(details);
+                  })
+                  .catch((err) => {
+                    console.error("Error capturing order:", err);
+                  });
+              }}
+              onError={(err) => {
+                console.error("Error creating PayPal order:", err);
+              }}
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm mb-2">Card Number</label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="User Name"
-                className="w-full bg-gray-700 rounded p-2 pl-10"
-                value={CardNumber}
-                onChange={(e) => setCardNumber(e.target.value)}
-              />
-              <div className="absolute left-2 top-2">
-                <svg
-                  className="w-6 h-6 text-orange-500"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                </svg>
-              </div>
-              <div className="absolute left-0 top-2">
-                <svg
-                  className="w-6 h-6 text-red-500"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row mb-4">
-            <div className="w-full sm:w-1/2 sm:mr-2 mb-4 sm:mb-0">
-              <label className="block text-sm mb-2">Expiry</label>
-              <input
-                type="text"
-                placeholder="User Name"
-                className="w-full bg-gray-700 rounded p-2"
-                value={Expiry}
-                onChange={(e) => setExpiry(e.target.value)}
-              />
-            </div>
-            <div className="w-full sm:w-1/2 sm:ml-2">
-              <label className="block text-sm mb-2">CVC</label>
-              <input
-                type="text"
-                placeholder="User Name"
-                className="w-full bg-gray-700 rounded p-2"
-                value={CVC}
-                onChange={(e) => setCVC(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="mb-6">
-            <label className="block text-sm mb-2">Discount Code</label>
-            <div className="flex">
-              <input
-                type="text"
-                placeholder="User Name"
-                className="flex-grow bg-gray-700 rounded-l p-2"
-              />
-              <button className="bg-purple-600 text-white px-4 rounded-r">
-                Apply
-              </button>
-            </div>
-          </div>
-          <div className="mb-2 flex justify-between">
-            <span>Subtotal</span>
-            <span>$ 400.00</span>
-          </div>
-          <div className="mb-2 flex justify-between">
-            <span>Discount & Offers</span>
-            <span>50%</span>
-          </div>
-          <div className="mb-6 flex justify-between text-xl font-bold">
-            <span className="text-red-500">Total</span>
-            <span>$ 200.00</span>
-          </div>
-          <button
-            className="w-full bg-pink-600 text-white py-3 rounded-lg"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </button>
-        </form>
+          </PayPalScriptProvider>
+        </div>
       </div>
-
-      <ConfirmationPopup
+      {/* <ConfirmationPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
         onConfirm={handleConfirm}
-      />
+      /> */}
     </div>
   );
 }

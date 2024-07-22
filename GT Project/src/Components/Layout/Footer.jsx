@@ -11,11 +11,8 @@ export default function Foot() {
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 ">
           <div>
             <Footer.Brand
-              href="#"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name={<span className="text-white">GTickets</span>}
-             
+               href="#"
+               name={<span className="text-white">GTickets</span>}
             />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
