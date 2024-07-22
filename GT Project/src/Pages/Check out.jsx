@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import ConfirmationPopup from "./Confirm";
 import axios from "axios";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { jsPDF } from "jspdf";
 import { dbURL } from "../FirebaseConfig/Config";
 
 function Checkout() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [eventDetail, setEventDetail] = useState(null);
+  const [coupons, setCoupons] = useState({});
+  const [couponInput, setCouponInput] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(
+    localStorage.getItem("price tickets")
+  );
+
   const initialOptions = {
     "client-id":
       "AWrR0dEDBlc9AVYB7E-RbYM8HyZMGiRs_ibLN1lcJXBnv8DhZc1BuvhagRX5ycmsDSNQ3B5TxKya81_v",
@@ -15,15 +20,16 @@ function Checkout() {
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
   };
+
   let tuser = JSON.parse(localStorage.getItem("user"));
   let tevent = parseInt(localStorage.getItem("Event id"));
   let tcount = localStorage.getItem("count tickets");
   let ttcount = parseInt(tcount);
-  let tprice = localStorage.getItem("price tickets");
+  let tprice = parseFloat(localStorage.getItem("price tickets"));
   let talltikets = localStorage.getItem("all count tickets");
   let ttalltikets = parseInt(talltikets);
   let count = 0;
-  console.log(typeof tevent);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,26 +42,38 @@ function Checkout() {
     fetchData();
   }, [tevent]);
 
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    setIsPopupOpen(true);
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      try {
+        const response = await axios.get(`${dbURL}/coupons.json`);
+        setCoupons(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchCoupons();
+  }, []);
+  let z;
+  const handleApplyCoupon = () => {
+    const coupon = coupons[couponInput];
+    if (coupon && !coupon.is_deleted) {
+      setDiscount(parseFloat(coupon.discount));
+      setFinalPrice(tprice - parseFloat(coupon.discount));
+      z = tprice - parseFloat(coupon.discount);
+    } else {
+      alert("Invalid or expired coupon code.");
+      setDiscount(0);
+      setFinalPrice(tprice);
+    }
   };
 
-  const handleConfirm = (e) => {
-    e.preventDefault();
-
-    setIsPopupOpen(false);
-  };
-  console.log(tuser);
   const handlePaymentUpload = async (orderDetails) => {
-    let newid = `${tuser}`;
     const tikets = ttalltikets - tcount;
-    console.log(tikets);
     const paymentData = {
       user: tuser,
       event: tevent,
       tickets: ttcount,
-      price: tprice,
+      price: finalPrice,
       orderDetails,
     };
     try {
@@ -63,7 +81,6 @@ function Checkout() {
         `${dbURL}/users/${tuser}/Purchases/${count++}.json`,
         paymentData
       );
-
       await axios.put(`${dbURL}/Events/${tevent}/numTickets.json`, tikets);
     } catch (err) {
       console.error("Error uploading payment data:", err);
@@ -76,7 +93,7 @@ function Checkout() {
     doc.text(`Name: ${tuser}`, 10, 20);
     doc.text(`Event: ${eventDetail ? eventDetail.name : "Loading..."}`, 10, 30);
     doc.text(`Tickets: ${tcount}`, 10, 40);
-    doc.text(`Price: $${tprice}`, 10, 50);
+    doc.text(`Price: $${finalPrice}`, 10, 50);
     doc.text(`Order ID: ${orderDetails.id}`, 10, 60);
     doc.save("invoice.pdf");
   };
@@ -85,7 +102,7 @@ function Checkout() {
     <div className="bg-gray-900 text-white p-4 md:p-8 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
         {eventDetail ? (
-          <div className="bg-gray-800 rounded-lg p-4 mb-4 ">
+          <div className="bg-gray-800 rounded-lg p-4 mb-4">
             <img
               src={eventDetail.image}
               alt="Event"
@@ -95,13 +112,42 @@ function Checkout() {
               <h3 className="font-bold">{eventDetail.name}</h3>
             </div>
             <div className="flex items-center">
-              <span className="mx-2">tickets num: {tcount} </span>
+              <span className="mx-2">Tickets num: {tcount}</span>
             </div>
-            <span className="ml-4">price :${tprice}</span>
+            <div className="mb-2 flex justify-between">
+              <span>Subtotal</span>
+              <span>$ {tprice}</span>
+            </div>
+            <div className="mb-2 flex justify-between">
+              <span>Discount & Offers</span>
+              <span>${discount}</span>
+            </div>
+            <div className="mb-6 flex justify-between text-xl font-bold">
+              <span className="text-red-500">Total</span>
+              <span>$ {finalPrice}</span>
+            </div>
           </div>
         ) : (
           <p>Loading event details...</p>
         )}
+        <div className="mb-6">
+          <label className="block text-sm mb-2">Discount Code</label>
+          <div className="flex">
+            <input
+              type="text"
+              value={couponInput}
+              onChange={(e) => setCouponInput(e.target.value)}
+              placeholder="Enter coupon code"
+              className="flex-grow bg-gray-700 rounded-l p-2"
+            />
+            <button
+              onClick={handleApplyCoupon}
+              className="bg-purple-600 text-white px-4 rounded-r"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
       </div>
       <div className="w-full md:w-1/2 bg-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-6">Let's Make Payment</h2>
@@ -111,7 +157,6 @@ function Checkout() {
             <PayPalButtons
               style={{ layout: "horizontal", shape: "rect" }}
               createOrder={(data, actions) => {
-                console.log("Creating order...");
                 return actions.order
                   .create({
                     intent: "CAPTURE",
@@ -120,13 +165,12 @@ function Checkout() {
                         description: eventDetail ? eventDetail.name : "Event",
                         amount: {
                           currency_code: "USD",
-                          value: tprice,
+                          value: z,
                         },
                       },
                     ],
                   })
                   .then((orderID) => {
-                    console.log("Order created:", orderID);
                     return orderID;
                   })
                   .catch((err) => {
@@ -134,11 +178,9 @@ function Checkout() {
                   });
               }}
               onApprove={(data, actions) => {
-                console.log("Order approved:", data);
                 return actions.order
                   .capture()
                   .then((details) => {
-                    console.log("Order details:", details);
                     alert(
                       `Transaction completed by ${details.payer.name.given_name}`
                     );
@@ -156,11 +198,6 @@ function Checkout() {
           </PayPalScriptProvider>
         </div>
       </div>
-      {/* <ConfirmationPopup
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        onConfirm={handleConfirm}
-      /> */}
     </div>
   );
 }
