@@ -30,17 +30,17 @@ function TicketCard({ name, startDate, endDate, price, eventId, img }) {
         <div id="content" className="flex flex-col gap-1">
           <h6
             id="name"
-            className="self-stretch text-cyan-50 font-medium font-sans "
+            className="self-stretch text-text-prim font-medium font-sans "
           >
             {name}
           </h6>
-          <p id="date" className="text-sm text-slate-500 font-semibold">
+          <p id="date" className="text-sm text-text-second font-semibold">
             Start : {startDate}
             <br />
             End : {endDate}
           </p>
-          <p id="price" className="text-sm text-slate-500 font-semibold">
-            {price}
+          <p id="price" className="text-base text-text-prim font-bold">
+            ${price}
           </p>
         </div>
         <MainButton

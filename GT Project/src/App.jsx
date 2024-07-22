@@ -13,6 +13,7 @@ import ContactUs from "./Pages/Contact us.jsx";
 import Home from "./Pages/NewHome.jsx";
 import Db from "./Pages/Dashboard.jsx";
 import AboutUs from "./Pages/AboutUs.jsx";
+import Error404 from "./Pages/Error404.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/dashboard" element={<Db />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
         <Foot />
       </BrowserRouter>
