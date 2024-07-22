@@ -12,6 +12,7 @@ import HomeComponent from "./Pages/Home.jsx";
 import ContactUs from "./Pages/Contact us.jsx";
 import Home from "./Pages/NewHome.jsx";
 import Db from "./Pages/Dashboard.jsx"
+
 function App() {
   return (
     <div className="bg-prim-dark">

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Form from "../Components/Form/Form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { dbURL } from "../FirebaseConfig/Config";
 
 function ContactUs() {
@@ -8,21 +8,22 @@ function ContactUs() {
   const [name, setName] = useState("");
   const [message, setMsg] = useState("");
 
-  const handleSending = async (form, resetForm) => {
-    const userData = localStorage.getItem("user");
+  const handleSending = async (event, form, resetForm) => {
+    event.preventDefault();
+    const userData = JSON.parse(localStorage.getItem("user"));
+    console.log(userData);
 
     if (userData) {
-      const user = JSON.parse(userData);
-      console.log("User data found in local storage:", user);
+      console.log("User data found in local storage:", userData);
 
       const messageData = {
         userName: form.name,
         userEmail: form.email,
-        userMsg: form.message,
+        userMsg: form.msg,
       };
 
       try {
-        await axios.put(`${dbURL}/messages.json`, messageData);
+        await axios.post(`${dbURL}/messages.json`, messageData);
         console.log("Message sent successfully:", messageData);
         resetForm();
       } catch (error) {
@@ -61,7 +62,9 @@ function ContactUs() {
           },
         ]}
         subitBtn={"Send your message"}
-        onSubmit={(form, resetForm) => handleSending(form, resetForm)}
+        onSubmit={(event, form, resetForm) =>
+          handleSending(event, form, resetForm)
+        }
         withEvent={true}
       />
     </div>
