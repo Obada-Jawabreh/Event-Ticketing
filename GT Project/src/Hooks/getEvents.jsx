@@ -1,4 +1,4 @@
-
+import { dbURL } from "../FirebaseConfig/Config";
 
 
 import { useState, useEffect } from "react";
@@ -28,7 +28,7 @@ function FetchEvents(url) {
     };
 
     fetchData();
-  }, [url]);
+  }  , [url]);
 
   return [Events];
 }
