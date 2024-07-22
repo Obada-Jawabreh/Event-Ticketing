@@ -68,38 +68,47 @@ function ContactUs() {
   };
 
   return (
-    <div className="my-24 mx-8 md:mx-24 lg:mx-96">
-      <Form
-        title={"Contact Us"}
-        formArr={[
-          {
-            label: "Your Name",
-            name: "name",
-            type: "text",
-            value: name,
-            onChange: (e) => setName(e.target.value),
-          },
-          {
-            label: "Email",
-            name: "email",
-            type: "email",
-            value: email,
-            onChange: (e) => setEmail(e.target.value),
-          },
-          {
-            label: "Your Message",
-            name: "msg",
-            type: "text",
-            value: message,
-            onChange: (e) => setMsg(e.target.value),
-          },
-        ]}
-        subitBtn={"Send your message"}
-        onSubmit={(event, form, resetForm) =>
-          handleSending(event, form, resetForm)
-        }
-        withEvent={true}
-      />
+    <div className="my-24 mx-8 md:mx-24 lg:mx-96 flex flex-col gap-6">
+      <div className="text-center  flex flex-col gap-3">
+        <p className="text-text-prim font-bold text-4xl">Lets Talk</p>
+        <p className="text-text-second text-xl">
+          Speak to an authentication expert to learn more about our platform,
+          reach out to support team if you're customer.{" "}
+        </p>
+      </div>
+      <div className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl">
+        <Form
+          // title={"Contact Us"}
+          formArr={[
+            {
+              label: "Your Name",
+              name: "name",
+              type: "text",
+              value: name,
+              onChange: (e) => setName(e.target.value),
+            },
+            {
+              label: "Email",
+              name: "email",
+              type: "email",
+              value: email,
+              onChange: (e) => setEmail(e.target.value),
+            },
+            {
+              label: "Your Message",
+              name: "msg",
+              type: "text",
+              value: message,
+              onChange: (e) => setMsg(e.target.value),
+            },
+          ]}
+          subitBtn={"Send your message"}
+          onSubmit={(event, form, resetForm) =>
+            handleSending(event, form, resetForm)
+          }
+          withEvent={true}
+        />
+      </div>
     </div>
   );
 }

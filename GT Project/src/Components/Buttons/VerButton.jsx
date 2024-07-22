@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const StyledVerButton = styled.button`
-  border: solid 2px #fff;
+  border: solid 2px #cabffd;
   border-radius: 8px;
-  color: #fff;
+  color: #cabffd;
   height: 40px;
   display: flex;
   flex-direction: row;

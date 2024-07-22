@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import image1 from './../images/Ticket1.png';
-import image2 from './../images/Ticket2.png';
-import image3 from './../images/Ticket3.png';
+import React, { useState, useEffect } from "react";
+import image1 from "./../images/Ticket1.png";
+import image2 from "./../images/Ticket2.png";
+import image3 from "./../images/Ticket3.png";
+import logisignupn from "../images/login.png";
 import {
   auth,
   dbURL,
@@ -22,20 +23,9 @@ const SignUpComponent = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState();
   const [error, setError] = useState("");
   const [isActive, setActive] = useState(true);
-
-  const validatePhoneNumber = (phoneNumber) => {
-    const phoneRegex = /^07\d{8}$/;
-    return phoneRegex.test(phoneNumber);
-  };
-
-  const validatePassword = (password) => {
-    // Example password validation: at least 8 characters, including 1 uppercase, 1 lowercase, and 1 digit
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    return passwordRegex.test(password);
-  };
 
   const handleSignUp = async (form, resetForm) => {
     setError("");
@@ -45,18 +35,14 @@ const SignUpComponent = () => {
       return;
     }
 
-    if (!validatePhoneNumber(form.phone)) {
-      setError("Phone number must start with 07 and be 10 digits long");
-      return;
-    }
-
-    if (!validatePassword(form.password)) {
-      setError("Password must be at least 8 characters long, including 1 uppercase letter, 1 lowercase letter, and 1 digit");
-      return;
-    }
-
     try {
-      const userCredential = await createUser(auth, form.email, form.password, form.phone, isActive);
+      const userCredential = await createUser(
+        auth,
+        form.email,
+        form.password,
+        form.phone,
+        isActive
+      );
       const user = userCredential.user;
 
       await axios.put(`${dbURL}/users/${user.uid}.json`, {
@@ -123,67 +109,76 @@ const SignUpComponent = () => {
       />
     );
   };
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-24 gap-12 h-screen justify-center content-start py-10">
-      <div className="flex flex-col gap-6">
-        <Form
-          className="p-24"
-          title={"Sign Up"}
-          formArr={[
-            {
-              label: "Name",
-              name: "name",
-              type: "text",
-              value: name,
-              onChange: (e) => setName(e.target.value),
-            },
-            {
-              label: "Email",
-              name: "email",
-              type: "email",
-              value: email,
-              onChange: (e) => setEmail(e.target.value),
-            },
-            {
-              label: "Password",
-              name: "password",
-              type: "password",
-              value: password,
-              onChange: (e) => setPassword(e.target.value),
-            },
-            {
-              label: "Confirm Password",
-              name: "confirmPassword",
-              type: "password",
-              value: confirmPassword,
-              onChange: (e) => setConfirmPassword(e.target.value),
-            },
-            {
-              label: "Phone Number",
-              name: "phone",
-              type: "text",
-              value: phone,
-              onChange: (e) => setPhone(e.target.value),
-              placeholder: "07********",
-            },
-          ]}
-          subitBtn={"Sign Up"}
-          onSubmit={(form, resetForm) => handleSignUp(form, resetForm)}
-          redirect={{
-            label: "Have an account?",
-            link: {
-              label: "login",
-              to: "/login",
-            },
-          }}
-        />
+    <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-44 gap-12  justify-center content-start py-24">
+      <div className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl">
+        <div className="flex flex-col gap-6">
+          <Form
+            className="p-24"
+            title={"Sign Up"}
+            formArr={[
+              {
+                label: "Name",
+                name: "name",
+                type: "text",
+                value: name,
+                onChange: (e) => setName(e.target.value),
+              },
+              {
+                label: "Email",
+                name: "email",
+                type: "email",
+                value: email,
+                onChange: (e) => setEmail(e.target.value),
+              },
+              {
+                label: "Password",
+                name: "password",
+                type: "password",
+                value: password,
+                onChange: (e) => setPassword(e.target.value),
+              },
+              {
+                label: "Confirm Password",
+                name: "confirmPassword",
+                type: "password",
+                value: confirmPassword,
+                onChange: (e) => setConfirmPassword(e.target.value),
+              },
+              {
+                label: "Phone Number",
+                name: "phone",
+                type: "text",
+                value: phone,
+                onChange: (e) => {
+                  setPhone(e.target.value);
+                },
+                placeholder: "07********",
+              },
+            ]}
+            subitBtn={"Sign Up"}
+            onSubmit={(form, resetForm) => handleSignUp(form, resetForm)}
+            redirect={{
+              label: "Have an account?",
+              link: {
+                label: "login",
+                to: "/login",
+              },
+            }}
+          />
 
-        <GoogleBtn onClick={handleGoogleSignUp} className="google-btn">
-          Sign Up with Google
-        </GoogleBtn>
+          <GoogleBtn onClick={handleGoogleSignUp} className="google-btn">
+            Sign Up with Google
+          </GoogleBtn>
+        </div>
       </div>
-      <ImageSlider />
+      {/* <ImageSlider /> */}
+      <img
+        src={login}
+        alt="Event"
+        className="rounded-lg  invisible lg:visible"
+        style={{ width: "100%", height: "auto" }}
+      />
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
