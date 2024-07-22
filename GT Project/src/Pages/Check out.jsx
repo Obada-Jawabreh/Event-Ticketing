@@ -15,12 +15,15 @@ function Checkout() {
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
   };
-  let tuser = localStorage.getItem("user");
+  let tuser = JSON.parse(localStorage.getItem("user"));
   let tevent = parseInt(localStorage.getItem("Event id"));
-  let tcount = parseInt(localStorage.getItem("count tickets"));
+  let tcount = localStorage.getItem("count tickets");
+  let ttcount = parseInt(tcount);
   let tprice = localStorage.getItem("price tickets");
-  let talltikets = parseInt(localStorage.getItem("all count tickets"));
-
+  let talltikets = localStorage.getItem("all count tickets");
+  let ttalltikets = parseInt(talltikets);
+  let count = 0;
+  console.log(typeof tevent);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,20 +46,24 @@ function Checkout() {
 
     setIsPopupOpen(false);
   };
-
+  console.log(tuser);
   const handlePaymentUpload = async (orderDetails) => {
-    const newid = `${tuser}`;
-    const tikets = tcount - talltikets;
+    let newid = `${tuser}`;
+    const tikets = ttalltikets - tcount;
     console.log(tikets);
     const paymentData = {
       user: tuser,
       event: tevent,
-      tickets: tcount,
+      tickets: ttcount,
       price: tprice,
       orderDetails,
     };
     try {
-      await axios.put(`${dbURL}/Purchases/${newid}.json`, paymentData);
+      await axios.patch(
+        `${dbURL}/users/${tuser}/Purchases/${count++}.json`,
+        paymentData
+      );
+
       await axios.put(`${dbURL}/Events/${tevent}/numTickets.json`, tikets);
     } catch (err) {
       console.error("Error uploading payment data:", err);
