@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import MainButton from "../Components/Buttons/MainButton";
 
 const EventDetails = () => {
   const navigate = useNavigate();
@@ -101,8 +102,8 @@ const EventDetails = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-prim-dark text-white ">
-        <main className="grid grid-col-1 lg:grid-cols-3 mx-8 sm:mx-8 lg:mx-12 xl:mx-24 mb-40 my-12 gap-6">
+      <div className=" bg-prim-dark text-white ">
+        <main className="grid grid-col-1 lg:grid-cols-3 mx-8 sm:mx-8 lg:mx-12 xl:mx-24  my-12 gap-6">
           <div className="col-span-2 flex flex-col gap-4">
             <div id="img" className="bg-card rounded-lg ">
               <img
@@ -112,10 +113,12 @@ const EventDetails = () => {
               />
             </div>
             <div id="Content" className="flex flex-col gap-1">
-              <h1 className="text-2xl  font-bold ">{event.name}</h1>
+              <h1 className="text-2xl  font-bold font-sans text-text-prim">
+                {event.name}
+              </h1>
               <p
                 id="desciption"
-                className="text-white text-opacity-50 mb-8 w-full lg:w-2/3"
+                className="text-white text-opacity-50 mb-8 w-full lg:w-2/3 font-sans text-text-second"
               >
                 {event.description}
               </p>
@@ -138,12 +141,14 @@ const EventDetails = () => {
 
               <div className="flex justify-between items-center">
                 <span className="text-2xl font-semibold">{event.price} JD</span>
-                <button
-                  className="bg-custom-red text-white py-2 px-4 rounded-lg hover:bg-custom-red-hover/80"
-                  onClick={handelSelect}
-                >
-                  Select Ticket
-                </button>
+                <div className="w-1/2">
+                  <MainButton
+                    className="bg-custom-red text-white py-2 px-4 rounded-lg hover:bg-custom-red-hover/80"
+                    onClick={handelSelect}
+                  >
+                    Select Ticket
+                  </MainButton>
+                </div>
               </div>
 
               <div className="flex items-center mt-4">
@@ -183,6 +188,30 @@ const EventDetails = () => {
             </div>
           </div>
         </main>
+      </div>
+      <div className="mx-8 sm:mx-8 lg:mx-12 xl:mx-24 mb-40 my-12 ">
+        <div id="featuers-Hiding">
+          <p className="font-sans text-text-prim font-bold text-2xl">
+            Event Location
+          </p>
+        </div>
+        <iframe
+          className="frameOfGps rounded-xl"
+          width="100%"
+          height="500px"
+          src={`https://maps.google.com/maps?q=${encodeURIComponent(
+            event.location
+          )}+(culture)&t=&z=14&ie=UTF8&iwloc=B&output=embed`}
+          title="Event Location"
+        >
+          <a
+            href={`https://www.google.com/maps?q=${encodeURIComponent(
+              event.location
+            )}+(culture)`}
+          >
+            View on Google Maps
+          </a>
+        </iframe>
       </div>
     </>
   );
