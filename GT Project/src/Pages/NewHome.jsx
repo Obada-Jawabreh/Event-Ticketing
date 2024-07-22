@@ -1,7 +1,7 @@
 import heroImg from "../images/heroImg.png";
 import cta from "../images/cta.png";
 import hero4 from "../images/4.png";
-
+import { Accordion } from "flowbite-react";
 import MainButton from "../Components/Buttons/MainButton";
 import { useState } from "react";
 // import hero3 from "../images/3.png";
@@ -12,6 +12,7 @@ function Home() {
       <Hero />
       <Featuers />
       <CTA />
+      <FAQ />
       <aboutUs />
     </div>
   );
@@ -131,96 +132,22 @@ function FeatuerCard({ featuer, description }) {
   );
 }
 
-function aboutUs() {
-  return (
-    <section className="py-6 dark:bg-gray-100 text-white mt-20">
-      <div className="container flex flex-col items-center justify-center p-4 mx-auto space-y-8 sm:p-10">
-        <h1 className="text-4xl font-bold leading-none text-center sm:text-5xl">
-          Meet Our team
-        </h1>
-        <p className="max-w-2xl text-center dark:text-gray-600">
-          Skilled developers crafting seamless ticketing experiences for gaming
-          enthusiasts.
-        </p>
-        <div className="flex flex-row flex-nowrap justify-center overflow-auto">
-          <div className="flex flex-col justify-center m-4 text-center">
-            <img
-              alt=""
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full dark:bg-gray-500"
-              src={hero4}
-            />
-            <p className="text-xl font-semibold leading-tight">
-              Obada Jawabreh
-            </p>
-            <p className="dark:text-gray-600">Scrum Master</p>
-          </div>
-          <div className="flex flex-col justify-center m-4 text-center">
-            <img
-              alt=""
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full dark:bg-gray-500"
-              src={hero4}
-            />
-            <p className="text-xl font-semibold leading-tight">Noor Atallah</p>
-            <p className="dark:text-gray-600">Product Owner</p>
-          </div>
-          <div className="flex flex-col justify-center m-4 text-center">
-            <img
-              alt=""
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full dark:bg-gray-500"
-              src={hero4}
-            />
-            <p className="text-xl font-semibold leading-tight">
-              Abd-alrahman Mnasour
-            </p>
-            <p className="dark:text-gray-600">QA</p>
-          </div>
-          <div className="flex flex-col justify-center m-4 text-center">
-            <img
-              alt=""
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full dark:bg-gray-500"
-              src={hero4}
-            />
-            <p className="text-xl font-semibold leading-tight">Alaa Ata</p>
-            <p className="dark:text-gray-600">Developer</p>
-          </div>
-          <div className="flex flex-col justify-center m-4 text-center">
-            <img
-              alt=""
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full dark:bg-gray-500"
-              src={hero4}
-            />
-            <p className="text-xl font-semibold leading-tight">
-              Mariam Khasawneh
-            </p>
-            <p className="dark:text-gray-600">Developer</p>
-          </div>
-          <div className="flex flex-col justify-center m-4 text-center">
-            <img
-              alt=""
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full dark:bg-gray-500"
-              src={hero4}
-            />
-            <p className="text-xl font-semibold leading-tight">Hashem Frehat</p>
-            <p className="dark:text-gray-600">Developer</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function CTA() {
   return (
     <div
       id="card "
       className="grid grid-cols-1 md:grid-cols-2 bg-gradient-second p-10 md:p-20 rounded-2xl "
     >
+      <div
+        id="gradiant"
+        className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  bg-indigo-800  "
+      ></div>
       <div id="content" className="flex flex-col gap-4 justify-between">
         <div className="flex flex-col gap-5">
-          <p className="text-text-prim font-sans font-bold text-4xl">
+          <p className="text-text-prim font-sans font-bold text-2xl md:text-4xl">
             Be Part of the Biggest eGaming Events!
           </p>
-          <p className="font-sans font-medium text-text-second text-xl">
+          <p className="font-sans font-medium text-text-second text-lg md:text-xl">
             Create an account and get your tickets for the hottest eGaming
             events.
           </p>
@@ -229,11 +156,87 @@ function CTA() {
           <MainButton>Available Tickets</MainButton>
         </div>
       </div>
-      <div id="img" className="flex justify-end invisible md:visible">
+      <div
+        id="img"
+        className=" justify-end hidden md:flex invisible md:visible"
+      >
+        <div
+          id="gradiant"
+          className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  bg-indigo-800  "
+        ></div>
         <img src={cta} className="w-1/2 h-auto" />
       </div>
     </div>
   );
 }
 
+function FAQ() {
+  return (
+    <div className="flex justify-center mt-20 m-auto mb-3 w-full">
+      <Accordion className="self-center text-white bg-second-dark w-full">
+        <h1 className="text-left font-bold text-2xl ml-5 mb-4 mt-4">FAQ's</h1>
+        <Accordion.Panel className="focus:ring-transparent bg-blk">
+          <Accordion.Title className="text-white bg-blk text-sm hover:bg-blk focus:ring-transparent">
+            How do I purchase tickets for a gaming event on GTickets?
+          </Accordion.Title>
+          <Accordion.Content>
+            <p className="mb-2 text-white text-sm">
+              Visit our website at GTickets.com. Browse or search for the gaming
+              event you want to attend. Click on the event to view more details.
+              Select the number of tickets you want and click "Buy Now".
+              Complete the checkout process by entering your payment and contact
+              information. Once your purchase is complete, you will receive a
+              confirmation email with your e-tickets.
+            </p>
+          </Accordion.Content>
+        </Accordion.Panel>
+        <Accordion.Panel className="focus:ring-transparent">
+          <Accordion.Title className="text-white text-sm bg-blk hover:bg-blk focus:ring-transparent">
+            Can I get a refund or exchange my tickets if I can’t attend the
+            event?
+          </Accordion.Title>
+          <Accordion.Content>
+            <p className="mb-2 text-white text-sm">
+              Refunds and exchanges are subject to the event organizer's policy.
+              Typically, tickets are non-refundable and non-exchangeable unless
+              the event is canceled or rescheduled. Please check the specific
+              event's refund policy on the event details page or contact our
+              customer support for further assistance.Flowbite is first
+              conceptualized and designed using the Figma software so everything
+              you see in the library has a design equivalent in our Figma file.
+            </p>
+          </Accordion.Content>
+        </Accordion.Panel>
+        <Accordion.Panel className="focus:ring-transparent">
+          <Accordion.Title className="text-white bg-blk text-sm hover:bg-light focus:ring-transparent">
+            How will I receive my tickets after purchase?
+          </Accordion.Title>
+          <Accordion.Content>
+            <p className="mb-2 text-white text-sm">
+              After you complete your purchase on GTickets, you will receive an
+              email confirmation with your e-tickets attached. You can either
+              print the tickets or display them on your mobile device at the
+              event entrance. Make sure to bring a valid ID matching the name on
+              the ticket for verification.
+            </p>
+          </Accordion.Content>
+        </Accordion.Panel>
+        <Accordion.Panel className="focus:ring-transparent">
+          <Accordion.Title className="text-white text-sm bg-blk hover:bg-light focus:ring-transparent">
+            What should I do if I haven’t received my e-tickets?
+          </Accordion.Title>
+          <Accordion.Content>
+            <p className="mb-2 text-white text-sm">
+              If you haven’t received your e-tickets, please check your spam or
+              junk email folder. If they are not there, contact our customer
+              support team with your order number and email address used for the
+              purchase. We will promptly resend your tickets to ensure you
+              receive them in time for the event.
+            </p>
+          </Accordion.Content>
+        </Accordion.Panel>
+      </Accordion>
+    </div>
+  );
+}
 export default Home;
