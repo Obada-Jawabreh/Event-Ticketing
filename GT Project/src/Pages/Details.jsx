@@ -102,7 +102,7 @@ const EventDetails = () => {
 
   return (
     <>
-      <div className=" bg-prim-dark text-white ">
+      <div className=" bg-prim-dark text-white w-full">
         <main className="grid grid-col-1 lg:grid-cols-3 mx-8 sm:mx-8 lg:mx-12 xl:mx-24  my-12 gap-6">
           <div className="col-span-2 flex flex-col gap-4">
             <div id="img" className="bg-card rounded-lg ">
@@ -113,12 +113,12 @@ const EventDetails = () => {
               />
             </div>
             <div id="Content" className="flex flex-col gap-1">
-              <h1 className="text-2xl  font-bold font-sans text-text-prim">
+              <h1 className="text-2xl font-bold font-sans text-text-prim">
                 {event.name}
               </h1>
               <p
                 id="desciption"
-                className="text-white text-opacity-50 mb-8 w-full lg:w-2/3 font-sans text-text-second"
+                className="text-opacity-50 mb-8 w-full lg:w-2/3 font-sans text-text-second"
               >
                 {event.description}
               </p>

@@ -3,19 +3,23 @@ import uicon from "../images/uicoon.png"
 
 import ticon from "../images/ticon.png"
 
+
 import axios from "axios"
 
 import { useState, useEffect } from "react"
 
 function Db() {
 
+
+
     const [data, set_data] = useState({});
     const [users, set_users] = useState({});
     const [coupons, set_coupons] = useState({});
+    const [messages, set_messages] = useState({});
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events.json")
-            .then(res => (set_data(res.data)))
+            .then(res => (set_data(res.data.filter( e => e.isDeleted == false))))
             .catch(err => (err))
     }, []);
 
@@ -25,9 +29,18 @@ function Db() {
             .catch(err => (err))
     }, []);
 
+
+    // .filter(c => c.is_deleted == false)
+
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons.json")
             .then(res => (set_coupons(res.data)))
+            .catch(err => (err))
+    }, []);
+
+    useEffect(() => {
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/messages.json")
+            .then(res => (set_messages(res.data)))
             .catch(err => (err))
     }, []);
 
@@ -231,10 +244,10 @@ function Db() {
     }
 
     function activate_handle(id) {
-        document.getElementById("status").style.backgroundColor = "red";
+        document.getElementById("status").key={id}.style.backgroundColor = "red";
 
-        if (id.active == "active") {
-            set_data(...users[id], users[id].ac);
+        if (users[id].isActive == false) {
+            
         }
 
 
@@ -386,7 +399,7 @@ function Db() {
 
                                         <i class="ri-arrow-drop-right-line text-4xl pt-1"></i>
 
-                                        <div className="text-2xl font-semibold">200</div>
+                                        <div className="text-2xl font-semibold">{Object.keys(messages).length}</div>
 
                                     </div>
 
@@ -454,6 +467,8 @@ function Db() {
                                     <th className="text-start w-[25%]">Email</th>
                                     <th className="text-start w-[5%]">Status</th>
                                 </div>
+                                
+                                
 
                                 {Object.values(users).map((tracker, index) => {
                                     return (
@@ -461,7 +476,8 @@ function Db() {
                                             <td className="text-start w-[25%]">{index}</td>
                                             <td className="text-start w-[25%]">{tracker.name}</td>
                                             <td className="text-start w-[25%]">{tracker.email}</td>
-                                            <td className="text-start w-[5%]"><div id="status" onClick={() => { activate_handle(tracker.id) }} className="w-5 h-5 pl-1 rounded-[100%] border-[3px] border-[#ffffff84] bg-[#3ade28] shadow-md shadow-red-950/40"></div></td>
+                                            {/* <div className="text-start w-[5%]" onClick={() => { activate_handle(tracker.id) }}></div> */}
+                                            {/* <div id="status" onClick={() => { activate_handle(tracker) }} className={`w-5 h-5 pl-1 rounded-[100%] border-[3px] border-[#ffffff84] bg-${users.[tracker.id].isActive ? "#3ade28" : "red"} shadow-md shadow-red-950/40`}></div> */}
                                         </div>
                                     )
                                 })}
@@ -533,23 +549,25 @@ function Db() {
                                 </div>
 
                                 <div className="flex flex-wrap h-[150px] overflow-scroll overflow-x-hidden">
-                                    {Object.values(coupons).map((tracker) => {
-                                        return (
-                                            <div key={tracker} className="flex  justify-between flex-wrap  items-center p-2 w-[20%] h-fit mx-auto m-3 bg-[#ffffff] rounded-[15px]">
+                                    <div className="flex flex-wrap justify-center items-center">
+                                        {Object.values(coupons).map((tracker) => {
+                                            return (
+                                                <div key={tracker} className="flex  justify-between flex-wrap  items-center p-2 w-[20%] h-fit m-2 bg-[#ffffff] rounded-[15px]">
 
-                                                <i className="fa-solid fa-tags text-3xl w-[20%] hover:text-[#bee7ff]"></i>
+                                                    <i className="fa-solid fa-tags text-3xl w-[20%] hover:text-[#bee7ff]"></i>
 
-                                                <p className="text-sm text-center w-[60%]"><span>{tracker.id}</span> - <span>%{tracker.discount}</span></p>
+                                                    <p className="text-sm text-center w-[60%]"><span>{tracker.id}</span> - <span>%{tracker.discount}</span></p>
 
-                                                <div className="icons w-[20%]">
+                                                    <div className="icons w-[20%]">
 
-                                                    <i className="fa-solid fa-trash text-xl hover:text-[#cd3e3e] " onClick={() => { coupon_delete_handle(tracker.id) }}></i>
+                                                        <i className="fa-solid fa-trash text-xl hover:text-[#cd3e3e] " onClick={() => { coupon_delete_handle(tracker.id) }}></i>
+
+                                                    </div>
 
                                                 </div>
-
-                                            </div>
-                                        )
-                                    })}
+                                            )
+                                        })}
+                                    </div>
                                 </div>
 
                             </div>
@@ -568,13 +586,13 @@ function Db() {
                                     <div className="up w-2/4 h-fit  text-left flex-col self-center">
 
                                         <label htmlFor="" className="">Event name <br></br>
-                                            <input id="e_name" type="text" className=" w-5/6 h-10 my-2 px-2 text-[#ffffff] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_name" type="text" className=" w-5/6 h-10 my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
 
                                         <br></br>
 
                                         <label htmlFor="" className="">Price <br></br>
-                                            <input id="e_price" type="text" className=" w-5/6 h-10 my-2 px-2 text-[#ffffff] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_price" type="text" className=" w-5/6 h-10 my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
 
 
@@ -582,7 +600,7 @@ function Db() {
                                         <br></br>
 
                                         <label htmlFor="" className="">Start Date <br></br>
-                                            <input id="e_start_date" type="text" className=" w-5/6 h-10 my-2 text-[#ffffff] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_start_date" type="text" className=" w-5/6 h-10 my-2 text-[#000000] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
                                     </div>
 
@@ -590,32 +608,32 @@ function Db() {
 
                                     <div className="down w-2/4  h-fit text-left  ">
                                         <label htmlFor="" className="">Location <br></br>
-                                            <input id="e_location" type="text" className=" w-5/6 h-10  my-2 text-[#ffffff] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_location" type="text" className=" w-5/6 h-10  my-2 text-[#000000] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
 
                                         <br></br>
 
                                         <label htmlFor="" className="">Quantity <br></br>
-                                            <input id="e_quantity" type="text" className=" w-5/6 h-10  my-2 text-[#ffffff] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_quantity" type="text" className=" w-5/6 h-10  my-2 text-[#000000] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
 
                                         <br></br>
 
                                         <label htmlFor="" className="">Expiry Date <br></br>
-                                            <input id="e_end_date" type="text" className=" w-5/6 h-10  my-2 text-[#ffffff] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_end_date" type="text" className=" w-5/6 h-10  my-2 text-[#000000] px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
                                     </div>
                                 </div>
 
                                 <div className="text-left">
                                     <label htmlFor="" className="">Image URL <br></br>
-                                        <input id="e_image" type="text" className=" w-full h-10 my-2 px-2 text-[#ffffff] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
+                                        <input id="e_image" type="text" className=" w-full h-10 my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
                                     </label>
                                 </div>
 
                                 <div className="text-left">
                                     <label htmlFor="" className="">Description <br></br>
-                                        <input id="e_desc" type="text" className=" w-full h-10 my-2 px-2 text-[#ffffff] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
+                                        <input id="e_desc" type="text" className=" w-full h-10 my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
                                     </label>
                                 </div>
 
@@ -676,20 +694,20 @@ function Db() {
                                         <br></br>
 
                                         <label htmlFor="" className="">Expiry Date <br></br>
-                                            <input id="e_end_date_u" type="text" className="w-5/6 h-10  my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
+                                            <input id="e_end_date_u" type="text" className="w-5/6 h-10  my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff]  " />
                                         </label>
                                     </div>
                                 </div>
 
                                 <div className="text-left">
                                     <label htmlFor="" className="">Image URL <br></br>
-                                        <input id="e_image_u" type="text" className="w-full h-10 my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
+                                        <input id="e_image_u" type="text" className="w-full h-10 my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
                                     </label>
                                 </div>
 
                                 <div className="text-left">
                                     <label htmlFor="" className="">Description <br></br>
-                                        <input id="e_desc_u" type="text" className="w-full h-10 my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
+                                        <input id="e_desc_u" type="text" className="w-full h-10 my-2 px-2 text-[#000000] bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] " />
                                     </label>
                                 </div>
 
@@ -735,13 +753,13 @@ function Db() {
 
                                     <div className="inputs flex justify-center items-center w-full text-left ">
                                         <label htmlFor="" className="">Coupon ID :<br></br>
-                                            <input id="coupon_id" type="text" className="text- h-10 my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] text-[#ffffff] mx-3 " />
+                                            <input id="coupon_id" type="text" className="text- h-10 my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] text-[#000000] mx-3 " />
                                         </label>
 
                                         <br></br>
 
                                         <label htmlFor="" className="">Discount :<br></br>
-                                            <input id="coupon_discount" type="text" className="text- h-10 my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] text-[#ffffff] mx-3 " />
+                                            <input id="coupon_discount" type="text" className="text- h-10 my-2 px-2 bg-[#ffffff] rounded-[10px] border-2 border-[#ffffff] text-[#000000] mx-3 " />
                                         </label>
 
                                     </div>
@@ -765,7 +783,24 @@ function Db() {
 
 
                     <div className="feedback hidden" id="feedback">
-                        ggggggggggggggggg
+                        <div className="flex flex-wrap justify-center items-center">
+                            {Object.values(messages).map((tracker) => {
+                                return (
+                                    <div key={tracker} className="w-[300px] h-[100px]    m-6">
+                                        <div className="text-start font-semibold">{tracker.userName.toUpperCase()}</div>
+                                        <div className="shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-2 bg-[#ffffff] border-2 border-[#000000] rounded">
+                                            <div className="  w-full flex justify-between items-center border-b-2 pb-2 border-[#000000]">
+                                                <div className="w-[75%] text-start font-semibold">{tracker.userEmail}</div>
+                                            </div>
+                                            <div className=" min-h-fit h-[60px]">
+                                                {tracker.userMsg}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                )
+                            })}
+                        </div>
                     </div>
 
                 </div>

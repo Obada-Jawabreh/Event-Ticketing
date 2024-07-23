@@ -26,6 +26,7 @@ const ProfileSettings = () => {
             setName(data.name || "");
             setEmail(data.email || "");
 
+
             if (data.Purchases) {
               const userPurchases = Object.values(data.Purchases).map(purchase => {
                 return {
@@ -38,6 +39,7 @@ const ProfileSettings = () => {
             }
           } else {
             console.log("No data available");
+
           }
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -104,10 +106,12 @@ const ProfileSettings = () => {
               Edit
             </button>
           </div>
+
           <div className="p-8">
             <h4 className="text-white font-bold mb-5 text-2xl">Your Information:</h4>
             <div className="mb-5">
               <p className="text-white font-medium">Email</p>
+
               {isEditing ? (
                 <input
                   type="email"
