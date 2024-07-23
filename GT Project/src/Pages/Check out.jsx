@@ -12,6 +12,8 @@ function Checkout() {
   const [finalPrice, setFinalPrice] = useState(
     parseFloat(localStorage.getItem("price tickets"))
   );
+  const [showPopup, setShowPopup] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
 
   const initialOptions = {
     "client-id":
@@ -76,14 +78,14 @@ function Checkout() {
     }
   };
 
-  const handlePaymentUpload = async (orderDetails) => {
+  const handlePaymentUpload = async (details) => {
     const tikets = ttalltikets - tcount;
     const paymentData = {
       user: tuser,
       event: tevent,
       tickets: ttcount,
       price: finalPrice,
-      orderDetails,
+      orderDetails: details,
     };
     try {
       await axios.patch(
@@ -91,20 +93,22 @@ function Checkout() {
         paymentData
       );
       await axios.put(`${dbURL}/Events/${tevent}/numTickets.json`, tikets);
+      setOrderDetails(details);
+      setShowPopup(true);
     } catch (err) {
       console.error("Error uploading payment data:", err);
     }
   };
 
-  const generatePDF = (orderDetails) => {
+  const generatePDF = () => {
     const doc = new jsPDF();
-    doc.text("Invoice", 10, 10);
+    doc.text("Event Ticket", 10, 10);
     doc.text(`Name: ${tuser}`, 10, 20);
     doc.text(`Event: ${eventDetail ? eventDetail.name : "Loading..."}`, 10, 30);
     doc.text(`Tickets: ${tcount}`, 10, 40);
     doc.text(`Price: $${finalPrice}`, 10, 50);
     doc.text(`Order ID: ${orderDetails.id}`, 10, 60);
-    doc.save("invoice.pdf");
+    doc.save("event_ticket.pdf");
   };
 
   return (
@@ -198,11 +202,7 @@ function Checkout() {
                     return actions.order
                       .capture()
                       .then((details) => {
-                        alert(
-                          `Transaction completed by ${details.payer.name.given_name}`
-                        );
                         handlePaymentUpload(details);
-                        generatePDF(details);
                       })
                       .catch((err) => {
                         console.error("Error capturing order:", err);
@@ -219,6 +219,32 @@ function Checkout() {
           <p className="text-center text-xl">Loading event details...</p>
         )}
       </div>
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] isolation-auto">
+          <div className="bg-gray-800 p-8 rounded-lg max-w-md w-full relative z-[10000]">
+            <h2 className="text-2xl font-bold mb-4">Payment Successful!</h2>
+            <p className="mb-4">
+              Thank you for your purchase. Your ticket is ready for download.
+            </p>
+            <button
+              onClick={() => {
+                generatePDF();
+                setShowPopup(false);
+              }}
+              className="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 transition duration-300 mr-4"
+            >
+              Download Ticket
+            </button>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition duration-300"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
