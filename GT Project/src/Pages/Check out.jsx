@@ -56,17 +56,23 @@ function Checkout() {
 
   const handleApplyCoupon = () => {
     const coupon = coupons[couponInput];
-    if (coupon) {
-      const discountValue = parseFloat(coupon.discount);
-      setDiscount(discountValue);
-      const newPrice = tprice - discountValue;
-      setFinalPrice(newPrice);
-      localStorage.setItem("finalPrice", newPrice); // Store the final price in localStorage
+    if (coupon && !coupon.is_deleted) {
+      const discountValue = parseFloat(coupon.discount) / 100;
+      const discountAmount = tprice * discountValue;
+      setDiscount(discountAmount);
+      setFinalPrice(tprice - discountAmount);
+      localStorage.setItem("finalPrice", tprice - discountAmount);
+      console.log(
+        `Applied coupon: ${couponInput}, Discount: ${discountAmount}, Final Price: ${
+          tprice - discountAmount
+        }`
+      );
     } else {
       alert("Invalid or expired coupon code.");
       setDiscount(0);
       setFinalPrice(tprice);
-      localStorage.setItem("finalPrice", tprice); // Store the original price in localStorage
+      localStorage.setItem("finalPrice", tprice);
+      console.log(`Invalid coupon: ${couponInput}, No discount applied.`);
     }
   };
 
@@ -102,111 +108,115 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-gray-900 text-white p-4 md:p-8 flex flex-col md:flex-row">
-      <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
+    <div className="bg-gray-900 text-white p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8 text-center">Checkout</h1>
+
         {eventDetail ? (
-          <div className="bg-gray-800 rounded-lg p-4 mb-4">
-            <img
-              src={eventDetail.image}
-              alt="Event"
-              className="w-full h-30 rounded mr-4 mb-4 sm:mb-0"
-            />
-            <div className="flex-grow mb-4 sm:mb-0 text-center sm:text-left">
-              <h3 className="font-bold">{eventDetail.name}</h3>
-            </div>
-            <div className="flex items-center">
-              <span className="mx-2">Tickets num: {tcount}</span>
-            </div>
-            <div className="mb-2 flex justify-between">
-              <span>Subtotal</span>
-              <span>$ {tprice}</span>
-            </div>
-            <div className="mb-2 flex justify-between">
-              <span>Discount & Offers</span>
-              <span>${discount}</span>
-            </div>
-            <div className="mb-6">
-              <label className="block text-sm mb-2">Discount Code</label>
-              <div className="flex">
-                <input
-                  type="text"
-                  value={couponInput}
-                  onChange={(e) => setCouponInput(e.target.value)}
-                  placeholder="Enter coupon code"
-                  className="flex-grow bg-gray-700 rounded-l p-2"
-                />
-                <button
-                  onClick={handleApplyCoupon}
-                  className="bg-purple-600 text-white px-4 rounded-r"
-                >
-                  Apply
-                </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+              <img
+                src={eventDetail.image}
+                alt="Event"
+                className="w-full h-64 object-cover rounded-lg mb-6"
+              />
+              <h2 className="text-2xl font-bold mb-4">{eventDetail.name}</h2>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-lg">Tickets:</span>
+                <span className="text-lg font-bold">{tcount}</span>
               </div>
-              <div className="mb-6 flex justify-between text-xl font-bold">
-                <span className="text-red-500">Total</span>
+              <hr className="border-gray-700 mb-4" />
+              <div className="flex justify-between mb-2">
+                <span>Subtotal</span>
+                <span>$ {tprice}</span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span>Discount & Offers</span>
+                <span>$ {discount}</span>
+              </div>
+              <div className="flex justify-between text-xl font-bold mt-4">
+                <span className="text-purple-400">Total</span>
                 <span>$ {finalPrice}</span>
               </div>
             </div>
-            <div className="w-full md:w-1/2 bg-gray-800 rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-6">Let's Make Payment</h2>
-              <div className="mt-4">
-                <h2 className="text-xl font-bold mb-2">Or Pay with PayPal</h2>
-                <PayPalScriptProvider options={initialOptions}>
-                  <PayPalButtons
-                    style={{ layout: "horizontal", shape: "rect" }}
-                    createOrder={(data, actions) => {
-                      const storedFinalPrice =
-                        localStorage.getItem("finalPrice"); // Get the final price from localStorage
-                      console.log(
-                        "Creating order with final price:",
-                        storedFinalPrice
-                      );
-                      return actions.order
-                        .create({
-                          intent: "CAPTURE",
-                          purchase_units: [
-                            {
-                              description: eventDetail
-                                ? eventDetail.name
-                                : "Event",
-                              amount: {
-                                currency_code: "USD",
-                                value: storedFinalPrice, // Use the stored final price
-                              },
-                            },
-                          ],
-                        })
-                        .then((orderID) => {
-                          return orderID;
-                        })
-                        .catch((err) => {
-                          console.error("Error creating order:", err);
-                        });
-                    }}
-                    onApprove={(data, actions) => {
-                      return actions.order
-                        .capture()
-                        .then((details) => {
-                          alert(
-                            `Transaction completed by ${details.payer.name.given_name}`
-                          );
-                          handlePaymentUpload(details);
-                          generatePDF(details);
-                        })
-                        .catch((err) => {
-                          console.error("Error capturing order:", err);
-                        });
-                    }}
-                    onError={(err) => {
-                      console.error("Error creating PayPal order:", err);
-                    }}
+
+            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6">Payment Details</h2>
+
+              <div className="mb-6">
+                <label className="block text-sm mb-2">Discount Code</label>
+                <div className="flex">
+                  <input
+                    type="text"
+                    value={couponInput}
+                    onChange={(e) => setCouponInput(e.target.value)}
+                    placeholder="Enter coupon code"
+                    className="flex-grow bg-gray-700 rounded-l p-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
                   />
-                </PayPalScriptProvider>
+                  <button
+                    onClick={handleApplyCoupon}
+                    className="bg-purple-600 text-white px-6 rounded-r hover:bg-purple-700 transition duration-300"
+                  >
+                    Apply
+                  </button>
+                </div>
               </div>
+
+              <h3 className="text-xl font-bold mb-4">Pay with PayPal</h3>
+              <PayPalScriptProvider options={initialOptions}>
+                <PayPalButtons
+                  style={{ layout: "vertical", shape: "rect" }}
+                  createOrder={(data, actions) => {
+                    const storedFinalPrice = localStorage.getItem("finalPrice");
+                    console.log(
+                      "Creating order with final price:",
+                      storedFinalPrice
+                    );
+                    return actions.order
+                      .create({
+                        intent: "CAPTURE",
+                        purchase_units: [
+                          {
+                            description: eventDetail
+                              ? eventDetail.name
+                              : "Event",
+                            amount: {
+                              currency_code: "USD",
+                              value: storedFinalPrice,
+                            },
+                          },
+                        ],
+                      })
+                      .then((orderID) => {
+                        return orderID;
+                      })
+                      .catch((err) => {
+                        console.error("Error creating order:", err);
+                      });
+                  }}
+                  onApprove={(data, actions) => {
+                    return actions.order
+                      .capture()
+                      .then((details) => {
+                        alert(
+                          `Transaction completed by ${details.payer.name.given_name}`
+                        );
+                        handlePaymentUpload(details);
+                        generatePDF(details);
+                      })
+                      .catch((err) => {
+                        console.error("Error capturing order:", err);
+                      });
+                  }}
+                  onError={(err) => {
+                    console.error("Error creating PayPal order:", err);
+                  }}
+                />
+              </PayPalScriptProvider>
             </div>
           </div>
         ) : (
-          <p>Loading event details...</p>
+          <p className="text-center text-xl">Loading event details...</p>
         )}
       </div>
     </div>
