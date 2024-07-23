@@ -7,127 +7,273 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function Db() {
-  const [data, set_data] = useState({});
-  const [users, set_users] = useState({});
-  const [coupons, set_coupons] = useState({});
-  const [messages, set_messages] = useState({});
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events.json"
-      )
-      .then((res) => set_data(res.data.filter((e) => e.isDeleted == false)))
-      .catch((err) => err);
-  }, []);
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users.json"
-      )
-      .then((res) => set_users(res.data))
-      .catch((err) => err);
-  }, []);
 
-  // .filter(c => c.is_deleted == false)
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons.json"
-      )
-      .then((res) => set_coupons(res.data))
-      .catch((err) => err);
-  }, []);
+    const [data, set_data] = useState({});
+    const [users, set_users] = useState({});
+    const [coupons, set_coupons] = useState({});
+    const [messages, set_messages] = useState({});
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/messages.json"
-      )
-      .then((res) => set_messages(res.data))
-      .catch((err) => err);
-  }, []);
+    useEffect(() => {
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events.json")
+            .then(res => (set_data(res.data.filter(e => e.isDeleted == false))))
+            .catch(err => (err))
+    }, [data]);
 
-  function home_handle() {
-    document.getElementById("home").style.display = "block";
-    document.getElementById("users").style.display = "none";
-    document.getElementById("events").style.display = "none";
-    document.getElementById("feedback").style.display = "none";
-  }
+    useEffect(() => {
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users.json")
+            .then(res => (set_users(res.data)))
+            .catch(err => (err))
+    }, [users]);
 
-  function users_handle() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("users").style.display = "block";
-    document.getElementById("events").style.display = "none";
-    document.getElementById("feedback").style.display = "none";
-  }
 
-  function events_handle() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("users").style.display = "none";
-    document.getElementById("events").style.display = "block";
-    document.getElementById("feedback").style.display = "none";
-  }
+    // .filter(c => c.is_deleted == false)
 
-  function feedback_handle() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("users").style.display = "none";
-    document.getElementById("events").style.display = "none";
-    document.getElementById("feedback").style.display = "block";
-  }
+    useEffect(() => {
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons.json")
+            .then(res => (set_coupons(res.data.filter(e => coupons[e].is_deleted == false))))
+            .catch(err => (err))
+    }, [coupons]);
 
-  function add_form_handle() {
-    document.getElementById("add_form").style.display = "block";
+    useEffect(() => {
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/messages.json")
+            .then(res => (set_messages(res.data)))
+            .catch(err => (err))
+    }, []);
 
-    document.getElementById("home").style.filter = "blur(5px)";
-    document.getElementById("users").style.filter = "blur(5px)";
-    document.getElementById("events").style.filter = "blur(5px)";
-    document.getElementById("feedback").filter = "blur(5px)";
-    // document.getElementById("nav").filter = "blur(5px)";
-  }
+    function home_handle() {
+        document.getElementById("home").style.display = "block";
+        document.getElementById("users").style.display = "none";
+        document.getElementById("events").style.display = "none";
+        document.getElementById("feedback").style.display = "none";
+    }
 
-  function coupon_add_form() {
-    document.getElementById("coupon_add_form").style.display = "block";
-    document.getElementById("add_form").style.display = "none";
 
-    document.getElementById("home").style.filter = "blur(5px)";
-    document.getElementById("users").style.filter = "blur(5px)";
-    document.getElementById("events").style.filter = "blur(5px)";
-    document.getElementById("feedback").filter = "blur(5px)";
-    // document.getElementById("nav").filter = "blur(5px)";
-  }
+    function users_handle() {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("users").style.display = "block";
+        document.getElementById("events").style.display = "none";
+        document.getElementById("feedback").style.display = "none";
+    }
 
-  function cancel_handle() {
-    document.getElementById("add_form").style.display = "none";
-    document.getElementById("update_form").style.display = "none";
-    document.getElementById("coupon_add_form").style.display = "none";
 
-    document.getElementById("home").style.filter = "blur(0px)";
-    document.getElementById("users").style.filter = "blur(0px)";
-    document.getElementById("events").style.filter = "blur(0px)";
-    document.getElementById("feedback").filter = "blur(0px)";
-    // document.getElementById("nav").filter = "blur(0px)";
-  }
+    function events_handle() {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("users").style.display = "none";
+        document.getElementById("events").style.display = "block";
+        document.getElementById("feedback").style.display = "none";
+    }
 
-  function add_handle() {
-    axios
-      .put(
-        "https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events/" +
-          data.length +
-          ".json",
-        {
-          description: document.getElementById("e_desc").value,
-          endDate: document.getElementById("e_end_date").value,
-          id: data.length,
-          image: document.getElementById("e_image").value,
-          isDeleted: false,
-          location: document.getElementById("e_location").value,
-          name: document.getElementById("e_name").value,
-          numTickets: document.getElementById("e_quantity").value,
-          price: document.getElementById("e_price").value,
-          startDate: document.getElementById("e_start_date").value,
+
+    function feedback_handle() {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("users").style.display = "none";
+        document.getElementById("events").style.display = "none";
+        document.getElementById("feedback").style.display = "block";
+    }
+
+
+
+    function add_form_handle() {
+        document.getElementById("add_form").style.display = "block";
+
+        document.getElementById("home").style.filter = "blur(5px)";
+        document.getElementById("users").style.filter = "blur(5px)";
+        document.getElementById("events").style.filter = "blur(5px)";
+        document.getElementById("feedback").filter = "blur(5px)";
+        // document.getElementById("nav").filter = "blur(5px)";
+
+
+    }
+
+    function coupon_add_form() {
+        document.getElementById("coupon_add_form").style.display = "block";
+        document.getElementById("add_form").style.display = "none";
+
+        document.getElementById("home").style.filter = "blur(5px)";
+        document.getElementById("users").style.filter = "blur(5px)";
+        document.getElementById("events").style.filter = "blur(5px)";
+        document.getElementById("feedback").filter = "blur(5px)";
+        // document.getElementById("nav").filter = "blur(5px)";
+
+
+    }
+
+    function cancel_handle() {
+        document.getElementById("add_form").style.display = "none";
+        document.getElementById("update_form").style.display = "none";
+        document.getElementById("coupon_add_form").style.display = "none";
+
+        document.getElementById("home").style.filter = "blur(0px)";
+        document.getElementById("users").style.filter = "blur(0px)";
+        document.getElementById("events").style.filter = "blur(0px)";
+        document.getElementById("feedback").filter = "blur(0px)";
+        // document.getElementById("nav").filter = "blur(0px)";
+
+
+    }
+
+    function add_handle() {
+        axios.put("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events/" + data.length + ".json",
+            {
+
+                description: document.getElementById("e_desc").value,
+                endDate: document.getElementById("e_end_date").value,
+                id: data.length,
+                image: document.getElementById("e_image").value,
+                isDeleted: false,
+                location: document.getElementById("e_location").value,
+                name: document.getElementById("e_name").value,
+                numTickets: document.getElementById("e_quantity").value,
+                price: document.getElementById("e_price").value,
+                startDate: document.getElementById("e_start_date").value
+
+            }
+        )
+            .catch(err => (err))
+
+        alert("Event posted successfully !!!");
+    }
+
+    function add_coupon() {
+        axios.put("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons/" + document.getElementById("coupon_id").value + ".json",
+            {
+                id: document.getElementById("coupon_id").value,
+                discount: document.getElementById("coupon_discount").value,
+                is_deleted: false
+            }
+        )
+            .catch(err => (err))
+
+        alert("Coupon posted successfully !!!");
+    }
+
+
+    // const [s_event, set_s_event] = useState([]);
+
+    function update_form_handle() {
+
+
+
+
+        document.getElementById("update_form").style.display = "block";
+
+        document.getElementById("home").style.filter = "blur(5px)";
+        document.getElementById("users").style.filter = "blur(5px)";
+        document.getElementById("events").style.filter = "blur(5px)";
+        document.getElementById("feedback").filter = "blur(5px)";
+        // document.getElementById("nav").filter = "blur(5px)";
+
+    }
+
+
+    function select_event_handle(id) {
+
+
+
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events/" + id + ".json")
+            .then(res => (set_s_event(res.data)))
+            .catch(err => (err))
+
+        document.getElementById("e_name_u").value = data[id].name;
+        document.getElementById("e_price_u").value = data[id].price;
+        document.getElementById("e_start_date_u").value = data[id].startDate;
+        document.getElementById("e_location_u").value = data[id].location;
+        document.getElementById("e_quantity_u").value = data[id].numTickets;
+        document.getElementById("e_end_date_u").value = data[id].endDate;
+        document.getElementById("e_image_u").value = data[id].image;
+        document.getElementById("e_desc_u").value = data[id].description;
+
+
+
+        sessionStorage.setItem("event_id", JSON.stringify(id));
+        // alert(data[id].name);
+    }
+
+    let eid = sessionStorage.getItem("event_id");
+
+
+    function update_handle(id, e) {
+        // e.preventDefault();
+
+
+        axios.put(`https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events/${id}.json`,
+            {
+                description: document.getElementById("e_desc_u").value,
+                endDate: document.getElementById("e_end_date_u").value,
+                id: parseInt(id),
+                image: document.getElementById("e_image_u").value,
+                isDeleted: false,
+                location: document.getElementById("e_location_u").value,
+                name: document.getElementById("e_name_u").value,
+                numTickets: document.getElementById("e_quantity_u").value,
+                price: document.getElementById("e_price_u").value,
+                startDate: document.getElementById("e_start_date_u").value
+            }
+        )
+            .catch(err => (err))
+
+        alert("Event updated successfully !!!");
+    }
+
+
+
+    function delete_handle(id) {
+        axios.patch("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events/" + id + ".json",
+            {
+                isDeleted: true
+            }
+        )
+            .catch(err => (err))
+        alert("Event deleted successfully !!!");
+    }
+
+
+    function coupon_delete_handle(id) {
+        axios.patch("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons/" + id + ".json",
+            {
+                is_deleted: true
+            }
+        )
+            .catch(err => (err))
+
+        alert("Coupon deleted successfully !!!");
+    }
+
+    function activate_handle(id) {
+        // document.getElementById("status").key={id}.style.backgroundColor = "red";
+
+        // -${tracker.isActive ? "green" : "red"}
+
+
+        if (users[id].isActive == true) {
+
+            
+            axios.patch("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users/" + id + ".json",
+                {
+                    isActive: false
+                }
+            )
+            .catch(err => (err))
+            // alert("red !!!");
+
+            document.getElementById(id).style.backgroundColor = "red";
+        }
+
+        if (users[id].isActive == false) {
+
+            
+            axios.patch("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users/" + id + ".json",
+                {
+                    isActive: true
+                }
+            )
+            .catch(err => (err))
+            // alert("green rule  !!!");
+
+            document.getElementById(id).style.backgroundColor = "green";
         }
       )
       .catch((err) => err);
@@ -242,9 +388,56 @@ function Db() {
     alert("Coupon deleted successfully !!!");
   }
 
-  function activate_handle(id) {
-    document.getElementById("status").key = { id }.style.backgroundColor =
-      "red";
+
+
+
+    }
+
+
+    return (
+
+        <div className=" relative ">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+            <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+            <aside id="nav" className="fixed top-0 left-0 flex-col w-64 h-full bg-[#0F041C] p-4 ">
+                <div className="flex items-center pb-4 border-b border-b-gray-200 h-[10%]">
+                    {/* <img src={logo} alt="" className="h-auto w-[60px]  rounded object-cover" /> */}
+                    <span className="text-lg font-bold text-gray-200 ml-3"><span className="text-[#9cdbff] text-xl">G<span className="text-[#ffffff]">Tickets</span></span></span>
+                </div>
+
+                <ul className="mt-4 mb-1 group active h-[80%]">
+                    {/* group-[.active]:text-[#000000] group-[.active]:bg-[#90909083] */}
+                    <li className="flex items-center py-2 px-4 text-gray-200 mb-2  hover:bg-[#0d0b2a] hover:text-[#bee7ff] rounded-[10px]  "
+                        onClick={home_handle}
+                    >
+                        <i class="ri-home-2-line mr-3 text-lg"></i>
+                        <span className="text-sm">Dashboard</span>
+                    </li>
+
+                    <li className="flex items-center py-2 px-4 text-gray-200 mb-2 hover:bg-[#0d0b2a] hover:text-[#bee7ff] rounded-[10px]"
+                        onClick={users_handle}>
+                        <i class="ri-group-line mr-3 text-lg"></i>
+                        <span className="text-sm">Users</span>
+                    </li>
+
+
+                    <li className="flex items-center py-2 px-4 text-gray-200 mb-2 hover:bg-[#0d0b2a] hover:text-[#bee7ff] rounded-[10px]"
+                        onClick={events_handle}>
+                        <i class="ri-calendar-event-fill mr-3 text-lg"></i>
+                        <span className="text-sm">Events</span>
+                    </li>
+
+
+                    <li className="flex items-center py-2 px-4 text-gray-200 mb-2 hover:bg-[#0d0b2a] hover:text-[#bee7ff] rounded-[10px]"
+                        onClick={feedback_handle}>
+                        <i class="ri-feedback-line mr-3 text-lg"></i>
+                        <span className="text-sm">Feedback</span>
+                    </li>
+
 
     if (users[id].isActive == false) {
     }
@@ -356,8 +549,33 @@ function Db() {
                       {Object.keys(users).length}
                     </div>
 
-                    <div className="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold ml-2">
-                      +50%
+                    <div className="users hidden" id="users">
+                        <div className="w-full flex justify-center">
+                            <div className=" w-[90%]  bg-[#0F041C] text-white rounded border-2 border-[#000000] px-6 py-4">
+                                <div className="flex justify-between items-center font-serif pb-2 mb-7 border-b-2 border-[#bee7ff]">
+                                    <th className="text-start w-[25%]">ID</th>
+                                    <th className="text-start w-[25%]">Name</th>
+                                    <th className="text-start w-[25%]">Email</th>
+                                    <th className="text-start w-[5%]">Status</th>
+                                </div>
+
+
+
+                                {Object.values(users).map((tracker, index) => {
+                                    return (
+                                        <div key={tracker} className=" flex justify-between items-center my-3 p-2 rounded-[10px] border-0 border-[#000000]  shadow-lg shadow-[#bee7ff]">
+                                            <td className="text-start w-[25%]">{index}</td>
+                                            <td className="text-start w-[25%]">{tracker.name}</td>
+                                            <td className="text-start w-[25%]">{tracker.email}</td>
+                                            {/* <div className="text-start w-[5%]" onClick={() => { activate_handle(tracker.id) }}></div> */}
+                                            {/* [${tracker.isActive ? "green" : "red"}] */}
+                                            <div id={tracker.id} onClick={() => { activate_handle(tracker.id) }} className={`w-5 h-5 pl-1 rounded-[100%] border-[3px] border-[#ffffff84] bg-[green] shadow-md shadow-red-950/40`}></div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
                     </div>
                   </div>
 
