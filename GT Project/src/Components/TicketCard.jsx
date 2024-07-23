@@ -1,11 +1,12 @@
 import MainButton from "../Components/Buttons/MainButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function TicketCard({ name, startDate, endDate, price, eventId, img }) {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
   const handleSelectTicket = (ticketId) => {
     localStorage.setItem("Event id", JSON.stringify(ticketId));
-    navigate("details");
+    navigate("/Details");
   };
 
   return (
@@ -40,13 +41,21 @@ function TicketCard({ name, startDate, endDate, price, eventId, img }) {
             ${price}
           </p>
         </div>
-        <MainButton
-          id={eventId}
-          className="flex self-stretch w-full"
-          onClick={() => handleSelectTicket(eventId)}
-        >
-          Select Ticket
-        </MainButton>
+        {user ? (
+          <MainButton
+            id={eventId}
+            className="flex self-stretch w-full"
+            onClick={() => handleSelectTicket(eventId)}
+          >
+            Select Ticket
+          </MainButton>
+        ) : (
+          <Link to="/login">
+            <MainButton id={eventId} className="flex self-stretch w-full">
+              Select Ticket
+            </MainButton>
+          </Link>
+        )}
       </div>
     </div>
   );
