@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import image1 from "./../images/Ticket1.png";
 import image2 from "./../images/Ticket2.png";
 import image3 from "./../images/Ticket3.png";
-import signup from "../images/login.png";
+import signupn from "../images/signup3.png";
+
 import {
   auth,
   dbURL,
@@ -174,7 +175,9 @@ const SignUpComponent = () => {
       </div>
       {/* <ImageSlider /> */}
       <img
-        src={signup}
+
+        src={signupn}
+
         alt="Event"
         className="rounded-lg  invisible lg:visible"
         style={{ width: "100%", height: "auto" }}
