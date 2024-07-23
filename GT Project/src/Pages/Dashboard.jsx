@@ -19,24 +19,24 @@ function Db() {
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events.json")
-            .then(res => (set_data(res.data.filter( e => e.isDeleted == false))))
+            .then(res => (set_data(res.data.filter(e => e.isDeleted == false))))
             .catch(err => (err))
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users.json")
             .then(res => (set_users(res.data)))
             .catch(err => (err))
-    }, []);
+    }, [users]);
 
 
     // .filter(c => c.is_deleted == false)
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons.json")
-            .then(res => (set_coupons(res.data)))
+            .then(res => (set_coupons(res.data.filter(e => coupons[e].is_deleted == false))))
             .catch(err => (err))
-    }, []);
+    }, [coupons]);
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/messages.json")
@@ -244,11 +244,41 @@ function Db() {
     }
 
     function activate_handle(id) {
-        document.getElementById("status").key={id}.style.backgroundColor = "red";
+        // document.getElementById("status").key={id}.style.backgroundColor = "red";
+
+        // -${tracker.isActive ? "green" : "red"}
+
+
+        if (users[id].isActive == true) {
+
+            
+            axios.patch("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users/" + id + ".json",
+                {
+                    isActive: false
+                }
+            )
+            .catch(err => (err))
+            // alert("red !!!");
+
+            document.getElementById(id).style.backgroundColor = "red";
+        }
 
         if (users[id].isActive == false) {
+
             
+            axios.patch("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/users/" + id + ".json",
+                {
+                    isActive: true
+                }
+            )
+            .catch(err => (err))
+            // alert("green rule  !!!");
+
+            document.getElementById(id).style.backgroundColor = "green";
         }
+
+
+
 
 
     }
@@ -467,8 +497,8 @@ function Db() {
                                     <th className="text-start w-[25%]">Email</th>
                                     <th className="text-start w-[5%]">Status</th>
                                 </div>
-                                
-                                
+
+
 
                                 {Object.values(users).map((tracker, index) => {
                                     return (
@@ -477,7 +507,8 @@ function Db() {
                                             <td className="text-start w-[25%]">{tracker.name}</td>
                                             <td className="text-start w-[25%]">{tracker.email}</td>
                                             {/* <div className="text-start w-[5%]" onClick={() => { activate_handle(tracker.id) }}></div> */}
-                                            {/* <div id="status" onClick={() => { activate_handle(tracker) }} className={`w-5 h-5 pl-1 rounded-[100%] border-[3px] border-[#ffffff84] bg-${users.[tracker.id].isActive ? "#3ade28" : "red"} shadow-md shadow-red-950/40`}></div> */}
+                                            {/* [${tracker.isActive ? "green" : "red"}] */}
+                                            <div id={tracker.id} onClick={() => { activate_handle(tracker.id) }} className={`w-5 h-5 pl-1 rounded-[100%] border-[3px] border-[#ffffff84] bg-[green] shadow-md shadow-red-950/40`}></div>
                                         </div>
                                     )
                                 })}
