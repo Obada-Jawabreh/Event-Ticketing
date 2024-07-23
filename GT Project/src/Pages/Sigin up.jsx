@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import image1 from "./../images/Ticket1.png";
 import image2 from "./../images/Ticket2.png";
 import image3 from "./../images/Ticket3.png";
-
 import signupn from "../images/signup3.png";
-
 import {
   auth,
   dbURL,
@@ -17,6 +15,8 @@ import axios from "axios";
 import Form from "../Components/Form/Form";
 import { GoogleBtn } from "../Components/Buttons/VerButton";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const SignUpComponent = () => {
   const navigate = useNavigate();
@@ -57,6 +57,11 @@ const SignUpComponent = () => {
       localStorage.setItem("user", JSON.stringify(user.uid));
       navigate("/");
       resetForm();
+      Swal.fire({
+        title: "congratulations 🎉",
+        text: "You have a coupons discount 'GTickets'",
+        icon: "success",
+      });
     } catch (error) {
       setError(error.message);
       console.error("Error signing up:", error.message);
@@ -66,23 +71,28 @@ const SignUpComponent = () => {
   const handleGoogleSignUp = async (e) => {
     e.preventDefault();
     const provider = new GoogleAuthProvider();
-
-    provider.setCustomParameters({
-      prompt: "select_account",
-    });
+    provider.setCustomParameters({ prompt: "select_account" });
 
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log(result);
       const user = result.user;
+      console.log("users this ", user);
       const userData = {
         name: user.displayName || "",
         email: user.email || "",
         id: user.uid,
-        phone: user.phoneNumber || "",
       };
-      console.log(user);
+
       await axios.put(`${dbURL}/users/${user.uid}.json`, userData);
+      localStorage.setItem("user", JSON.stringify(user.uid));
+
       navigate("/");
+      Swal.fire({
+        title: "congratulations 🎉",
+        text: "You have a coupons discount 'GTickets'",
+        icon: "success",
+      });
     } catch (error) {
       setError(error.message);
       console.error("Error signing in with Google:", error.message);
