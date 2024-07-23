@@ -57,7 +57,7 @@ function Hero() {
 }
 
 function Featuers() {
-  const [featuersList, setFeatuersList] = useState({
+  const [featuersList] = useState({
     featuers: [
       {
         featuer: "  Wide Range of Events",
