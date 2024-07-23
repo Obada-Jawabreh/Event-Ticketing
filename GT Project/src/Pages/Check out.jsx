@@ -112,13 +112,13 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-gray-900 text-white p-4 md:p-8">
+    <div className="bg-prim-dark text-white p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-center">Checkout</h1>
 
         {eventDetail ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <div className=" bg-gradient-prim rounded-lg p-6 shadow-lg">
               <img
                 src={eventDetail.image}
                 alt="Event"
@@ -144,7 +144,7 @@ function Checkout() {
               </div>
             </div>
 
-            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <div className="bg-gradient-prim rounded-lg p-6 shadow-lg">
               <h2 className="text-2xl font-bold mb-6">Payment Details</h2>
 
               <div className="mb-6">
@@ -159,7 +159,7 @@ function Checkout() {
                   />
                   <button
                     onClick={handleApplyCoupon}
-                    className="bg-purple-600 text-white px-6 rounded-r hover:bg-purple-700 transition duration-300"
+                    className="bg-custom-red text-white px-6 rounded-r hover:bg-custom-red-hover transition duration-300"
                   >
                     Apply
                   </button>
