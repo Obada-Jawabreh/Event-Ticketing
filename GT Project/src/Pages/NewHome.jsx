@@ -19,6 +19,7 @@ import s1_5 from "../images/slider/s5.png";
 import FetchEvents from "../Hooks/getEvents";
 import { dbURL } from "../FirebaseConfig/Config";
 import TicketCard from "../Components/TicketCard";
+import { Link } from "react-router-dom";
 //============================================
 
 function Home() {
@@ -37,6 +38,7 @@ function Home() {
 }
 
 function Hero() {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div
       id="hero-container"
@@ -66,7 +68,17 @@ function Hero() {
             conventions around the world.
           </p>
           <div id="btns" className="w-1/2">
-            <MainButton className="font-sans">Explore Now</MainButton>
+            {user ? (
+              <Link to="/catalog">
+                {" "}
+                <MainButton className="font-sans">Explore Now</MainButton>
+              </Link>
+            ) : (
+              <Link to="/login">
+                {" "}
+                <MainButton className="font-sans">Explore Now</MainButton>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -151,6 +163,7 @@ function FeatuerCard({ featuer, description }) {
 }
 
 function CTA() {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div
       id="card "
@@ -165,13 +178,27 @@ function CTA() {
           <p className="text-text-prim font-sans font-bold text-2xl md:text-4xl">
             Be Part of the Biggest eGaming Events!
           </p>
-          <p className="font-sans font-medium text-text-second text-lg md:text-xl">
-            Create an account and get your tickets for the hottest eGaming
-            events.
-          </p>
+          {user ? (
+            <p className="font-sans font-medium text-text-second text-lg md:text-xl">
+              Get your tickets for the hottest eGaming events.
+            </p>
+          ) : (
+            <p className="font-sans font-medium text-text-second text-lg md:text-xl">
+              Create an account and get your tickets for the hottest eGaming
+              events.
+            </p>
+          )}
         </div>
         <div className="w-full md:w-1/2 ">
-          <MainButton>Available Tickets</MainButton>
+          {user ? (
+            <Link to="/catalog">
+              <MainButton>Book Now</MainButton>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <MainButton>Register Now</MainButton>
+            </Link>
+          )}
         </div>
       </div>
       <div
