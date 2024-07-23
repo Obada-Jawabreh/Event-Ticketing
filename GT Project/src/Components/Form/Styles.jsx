@@ -20,7 +20,7 @@ export const SFormControl = styled.div`
 `;
 
 export const SLable = styled.label`
-  color: #666666;
+  color: #785b96;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

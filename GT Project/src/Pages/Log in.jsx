@@ -67,7 +67,7 @@ function Login() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-44 gap-12  justify-center content-start py-24">
       <div className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col place-content-between h-full">
           <Form
             title={"Login"}
             formArr={[
@@ -95,10 +95,12 @@ function Login() {
               },
             }}
           />
-          {error && <div className="text-red-500">{error}</div>}
-          <GoogleBtn onClick={handleGoogleLogin} className="google-btn">
-            Sign Up with Google
-          </GoogleBtn>
+          <div className="flex flex-col">
+            {error && <div className="text-red-500">{error}</div>}
+            <GoogleBtn onClick={handleGoogleLogin} className="google-btn">
+              Login with Google
+            </GoogleBtn>
+          </div>
         </div>
       </div>
       <div className="">

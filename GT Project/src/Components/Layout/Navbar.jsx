@@ -11,7 +11,6 @@ import { dbURL } from "../../FirebaseConfig/Config";
 
 import TicketLogo from "../TicketLogo";
 
-
 function Nav() {
   const [dataUser, setUser] = useState({});
 
@@ -36,10 +35,7 @@ function Nav() {
             console.log(`No data found for user with ID: ${user}`);
           }
         } catch (error) {
-          console.error(
-            `Error fetching data for user with ID: ${user}`,
-            error
-          );
+          console.error(`Error fetching data for user with ID: ${user}`, error);
         }
       } else {
         console.log("No user data found in local storage.");
@@ -93,7 +89,7 @@ function Nav() {
         </Link>
         <Link to="/catalog">
           <Navbar.Link className="text-white text-base font-sans" href="#">
-            Tickets
+            Events
           </Navbar.Link>
         </Link>
         <Link to="/contact">

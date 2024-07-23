@@ -23,14 +23,6 @@ function GoogleBtn({ onClick, children, className }) {
 }
 
 // eslint-disable-next-line react/prop-types
-function FbBtn({ children }) {
-  return (
-    <StyledVerButton>
-      <FbSVG />
-      {children}
-    </StyledVerButton>
-  );
-}
 
 function GoogleSVG() {
   return (
@@ -69,30 +61,4 @@ function GoogleSVG() {
   );
 }
 
-function FbSVG() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <g clipPath="url(#clip0_4_5)">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M24 12.0707C24 5.40424 18.6274 0 12 0C5.37258 0 0 5.40424 0 12.0707C0 18.0956 4.38823 23.0893 10.125 23.9948V15.5599H7.07812V12.0707H10.125V9.41139C10.125 6.38617 11.9165 4.71513 14.6576 4.71513C15.9705 4.71513 17.3438 4.95088 17.3438 4.95088V7.92141H15.8306C14.3399 7.92141 13.875 8.85187 13.875 9.80645V12.0707H17.2031L16.6711 15.5599H13.875V23.9948C19.6118 23.0893 24 18.0956 24 12.0707Z"
-          fill="#FFFFFE"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_4_5">
-          <rect width="24" height="24" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
-
-export { GoogleBtn, FbBtn };
+export { GoogleBtn };

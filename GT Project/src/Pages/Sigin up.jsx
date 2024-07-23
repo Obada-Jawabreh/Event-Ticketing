@@ -173,12 +173,14 @@ const SignUpComponent = () => {
         </div>
       </div>
       {/* <ImageSlider /> */}
-      <img
-        src={signupn}
-        alt="Event"
-        className="rounded-lg  invisible lg:visible"
-        style={{ width: "100%", height: "auto" }}
-      />
+      <div className=" place-content-center">
+        <img
+          src={signupn}
+          alt="Event"
+          className="rounded-lg  invisible lg:visible"
+          style={{ width: "100%", height: "auto" }}
+        />
+      </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
