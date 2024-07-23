@@ -4,13 +4,31 @@ import hero4 from "../images/4.png";
 import { Accordion } from "flowbite-react";
 import MainButton from "../Components/Buttons/MainButton";
 import { useState } from "react";
-// import hero3 from "../images/3.png";
+import Slider from "../Components/Slider";
+
+// ===========================================
+
+import s1_1 from "../images/slider/s1.png";
+import s1_2 from "../images/slider/s2.png";
+import s1_3 from "../images/slider/s3.png";
+import s1_4 from "../images/slider/s4.png";
+import s1_5 from "../images/slider/s5.png";
+
+// ===========================================
+
+import FetchEvents from "../Hooks/getEvents";
+import { dbURL } from "../FirebaseConfig/Config";
+import TicketCard from "../Components/TicketCard";
+//============================================
 
 function Home() {
   return (
     <div className="flex flex-col gap-10  mx-8 sm:mx-8 lg:mx-12 xl:mx-24">
       <Hero />
+      <LogosSlider />
+      {/* <TicketsSlider /> */}
       <Featuers />
+      <Cards />
       <CTA />
       <FAQ />
       <aboutUs />
@@ -236,6 +254,49 @@ function FAQ() {
           </Accordion.Content>
         </Accordion.Panel>
       </Accordion>
+    </div>
+  );
+}
+
+const LogosSlider = () => {
+  const slider1Images = [s1_1, s1_2, s1_3, s1_4, s1_5];
+  return (
+    <main>
+      <Slider
+        width={200}
+        height={100}
+        quantity={4}
+        images={slider1Images}
+        reverse={true}
+      />
+    </main>
+  );
+};
+
+function Cards() {
+  const [events] = FetchEvents(dbURL);
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mt-12 text-white">
+        Currently Trending Games
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6 py-6">
+        {events &&
+          events
+            .slice(0, 4)
+            .map((event) => (
+              <TicketCard
+                key={event.id}
+                name={event.name}
+                startDate={event.startDate}
+                endDate={event.endDate}
+                price={event.price}
+                eventId={event.id}
+                img={event.image}
+              />
+            ))}
+      </div>
     </div>
   );
 }
