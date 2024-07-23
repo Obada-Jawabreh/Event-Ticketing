@@ -176,10 +176,7 @@ const SignUpComponent = () => {
       </div>
       {/* <ImageSlider /> */}
       <img
-
-
         src={signupn}
-
         alt="Event"
         className="rounded-lg  invisible lg:visible"
         style={{ width: "100%", height: "auto" }}

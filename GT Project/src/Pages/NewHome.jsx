@@ -5,6 +5,7 @@ import { Accordion } from "flowbite-react";
 import MainButton from "../Components/Buttons/MainButton";
 import { useState } from "react";
 import Slider from "../Components/Slider";
+import { Link } from "react-router-dom";
 
 // ===========================================
 
@@ -278,7 +279,7 @@ function Cards() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mt-12 text-white">
+      <h2 className="text-2xl font-bold mt-12 text-text-prim">
         Currently Trending Games
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6 py-6">
