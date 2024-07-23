@@ -20,7 +20,7 @@ import s1_5 from "../images/slider/s5.png";
 import FetchEvents from "../Hooks/getEvents";
 import { dbURL } from "../FirebaseConfig/Config";
 import TicketCard from "../Components/TicketCard";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 //============================================
 
 function Home() {
