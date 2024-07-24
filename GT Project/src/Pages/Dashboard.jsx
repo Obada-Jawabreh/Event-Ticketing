@@ -16,6 +16,7 @@ function Db() {
     const [users, set_users] = useState({});
     const [coupons, set_coupons] = useState({});
     const [messages, set_messages] = useState({});
+    const [admin, set_admin] = useState({});
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/Events.json")
@@ -34,12 +35,19 @@ function Db() {
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons.json")
-        .then(res => (set_coupons(Object.values(res.data).filter(c => c.is_deleted == false))))            .catch(err => (err))
+            .then(res => (set_coupons(Object.values(res.data).filter(c => c.is_deleted == false))))
+            .catch(err => (err))
     }, [coupons]);
 
     useEffect(() => {
         axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/messages.json")
             .then(res => (set_messages(res.data)))
+            .catch(err => (err))
+    }, []);
+
+    useEffect(() => {
+        axios.get("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/admin.json")
+            .then(res => (set_admin(res.data)))
             .catch(err => (err))
     }, []);
 
@@ -141,7 +149,7 @@ function Db() {
         axios.put("https://project-4-bbf17-default-rtdb.europe-west1.firebasedatabase.app/coupons/" + document.getElementById("coupon_id").value + ".json",
             {
                 id: document.getElementById("coupon_id").value,
-                discount: document.getElementById("coupon_discount").value,
+                discount: Number(document.getElementById("coupon_discount").value)/100,
                 is_deleted: false
             }
         )
@@ -348,7 +356,7 @@ function Db() {
 
                     <div className="flex justify-center items-center">
 
-                        <span>Admin name</span>
+                        <span>{admin.name}</span>
 
                         <img src={uicon} alt="" className="h-11 w-11 ml-2  rounded-[100%] object-cover" />
                     </div>
@@ -586,7 +594,7 @@ function Db() {
 
                                                     <i className="fa-solid fa-tags text-3xl w-[20%] hover:text-[#bee7ff]"></i>
 
-                                                    <p className="text-sm text-center w-[60%]"><span>{tracker.id}</span> - <span>%{tracker.discount}</span></p>
+                                                    <p className="text-sm text-center w-[60%]"><span>{tracker.id}</span> - <span>%{Number(tracker.discount)*100}</span></p>
 
                                                     <div className="icons w-[20%]">
 

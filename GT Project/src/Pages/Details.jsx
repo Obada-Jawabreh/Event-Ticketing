@@ -113,12 +113,12 @@ const EventDetails = () => {
               />
             </div>
             <div id="Content" className="flex flex-col gap-1">
-              <h1 className="text-2xl font-bold font-sans text-text-prim">
+              <h1 className="text-3xl font-bold font-sans text-text-prim ">
                 {event.name}
               </h1>
               <p
                 id="desciption"
-                className="text-opacity-50 mb-8 w-full lg:w-2/3 font-sans text-text-second"
+                className="text-opacity-50 mb-8 w-full lg:w-2/3 font-sans text-xl text-text-prime"
               >
                 {event.description}
               </p>
@@ -126,7 +126,7 @@ const EventDetails = () => {
           </div>
           {/* card details */}
           <div className="flex flex-col	">
-            <div className=" text-white p-6 h-fit rounded-lg border-2 border-[#ff0055] w-full">
+            <div className=" text-white p-6 h-fit rounded-lg border-2 border-custom-red w-full">
               <div id="avilabel" className="flex items-center ">
                 {event.numTickets ? (
                   <span className="text-zinc-400">
@@ -155,14 +155,14 @@ const EventDetails = () => {
                 <div className="flex items-center">
                   <button
                     onClick={handleDecrease}
-                    className="text-white bg-[#ff0055] px-2 py-1 rounded-l-lg"
+                    className="text-white bg-custom-red px-2 py-1 rounded-l-lg"
                   >
                     -
                   </button>
                   <span className="mx-4 text-lg">{count}</span>
                   <button
                     onClick={handleIncrease}
-                    className="text-white bg-[#ff0055] px-2 py-1 rounded-r-lg"
+                    className="text-white bg-custom-red px-2 py-1 rounded-r-lg"
                   >
                     +
                   </button>

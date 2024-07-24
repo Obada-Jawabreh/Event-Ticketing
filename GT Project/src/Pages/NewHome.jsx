@@ -6,7 +6,6 @@ import MainButton from "../Components/Buttons/MainButton";
 import { useState } from "react";
 import Slider from "../Components/Slider";
 import { Link } from "react-router-dom";
-
 // ===========================================
 
 import s1_1 from "../images/slider/s1.png";
@@ -24,6 +23,7 @@ import TicketCard from "../Components/TicketCard";
 //============================================
 
 function Home() {
+  
   return (
     <div className="flex flex-col gap-10  mx-8 sm:mx-8 lg:mx-12 xl:mx-24">
       <Hero />
@@ -218,6 +218,7 @@ function CTA() {
 
 function FAQ() {
   return (
+    
     <div className="flex justify-center mt-20 m-auto mb-3 w-full">
       <Accordion className="self-center text-white bg-second-dark w-full">
         <h1 className="text-left font-bold text-2xl ml-5 mb-4 mt-4">FAQ's</h1>
