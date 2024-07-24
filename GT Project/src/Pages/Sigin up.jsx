@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import image1 from "./../images/Ticket1.png";
 import image2 from "./../images/Ticket2.png";
 import image3 from "./../images/Ticket3.png";
-import signupn from "../images/signup3.png";
+import signupn from "../images/login2.png";
+// import signupn from "../images/signup3.png";
+
 import {
   auth,
   dbURL,

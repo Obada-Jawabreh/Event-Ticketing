@@ -1,4 +1,4 @@
-import login from "../images/login2.png";
+import login from "../images/signup3.png";
 import React, { useState } from "react";
 import {
   auth,
