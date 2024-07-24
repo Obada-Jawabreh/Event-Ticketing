@@ -38,6 +38,13 @@ function ContactUs() {
   }, [dbURL, userData]);
 
   const handleSending = async (event, form, resetForm) => {
+    if(!userData){
+      Swal.fire({
+        title: "Oops..",
+        text: "You must log in",
+        icon: "error",
+      })
+    }
     event.preventDefault();
 
     if (userData && dataUser) {
@@ -52,6 +59,11 @@ function ContactUs() {
           await axios.post(`${dbURL}/messages.json`, messageData);
           console.log("Message sent successfully:", messageData);
           resetForm();
+          Swal.fire({
+            title: "Your suggestion has been sent 🙂",
+            text: "The email will be answered as soon as possible",
+            icon: "success",
+          })
         } else {
           Swal.fire({
             icon: "error",
