@@ -18,9 +18,19 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 
-const SignUpComponent = () => {
-  const navigate = useNavigate();
+// ===============================
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// ===============================
+
+const SignUpComponent = () => {
+  useEffect(() => {
+    AOS.init({ duration: "1000", delay: "100" });
+  }, []);
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -123,7 +133,10 @@ const SignUpComponent = () => {
   };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-44 gap-12  justify-center content-start py-24">
-      <div className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl">
+      <div
+        className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl "
+        data-aos="fade-right"
+      >
         <div className="flex flex-col gap-6">
           <Form
             className="p-24"
@@ -190,6 +203,7 @@ const SignUpComponent = () => {
         alt="Event"
         className="rounded-lg  invisible lg:visible"
         style={{ width: "100%", height: "auto" }}
+        data-aos="fade-left"
       />
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>

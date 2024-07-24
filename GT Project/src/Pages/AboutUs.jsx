@@ -2,7 +2,20 @@ import about1 from "../images/about1.png";
 import about2 from "../images/about2.png";
 import hero4 from "../images/4.png";
 
+// ========================================
+
+import { useEffect } from "react";
+
+// ========================================
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// ========================================
+
 function AboutUs() {
+  useEffect(() => {
+    AOS.init({ duration: "1000", delay: "100" });
+  }, []);
   return (
     <div className=" mx-8 sm:mx-8 lg:mx-12 xl:mx-24 h-auto flex flex-col gap-0 py-20">
       <Hero />
@@ -21,9 +34,12 @@ function Hero() {
       ></div>
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 ">
         <div className="felx con">
-          <img src={about1} alt="" />
+          <img src={about1} alt="" data-aos="fade-right" />
         </div>
-        <div className="flex flex-col justify-center text-start">
+        <div
+          className="flex flex-col justify-center text-start"
+          data-aos="fade-left"
+        >
           <p className="text-text-prim font-bold text-3xl font-sans">
             About Us
           </p>
@@ -50,7 +66,10 @@ function Mission() {
         className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  bg-indigo-800  "
       ></div>
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2">
-        <div className="flex flex-col justify-center text-start">
+        <div
+          className="flex flex-col justify-center text-start"
+          data-aos="fade-right"
+        >
           <p className="text-text-prim font-bold text-3xl font-sans">
             Our Mission
           </p>
@@ -63,7 +82,7 @@ function Mission() {
           </div>
         </div>
         <div className="felx con">
-          <img src={about2} alt="" />
+          <img src={about2} alt="" data-aos="fade-left" />
         </div>
       </div>
     </div>
@@ -72,12 +91,15 @@ function Mission() {
 
 function Team() {
   return (
-    <section className="py-6 dark:bg-gray-100 text-white mt-20">
+    <section
+      className="py-6 dark:bg-gray-100 text-white mt-20"
+      data-aos="fade-up"
+    >
       <div className="container flex flex-col items-center justify-center p-4 mx-auto space-y-8 sm:p-10">
         <h1 className="font-bold leading-none text-center text-3xl  text-text-prim">
           Meet Our team
         </h1>
-        <p className="max-w-2xl text-center text-text-second text-lg">
+        <p className="max-w-2xl text-center text-text-second text-xl">
           Skilled developers crafting seamless ticketing experiences for gaming
           enthusiasts.
         </p>
