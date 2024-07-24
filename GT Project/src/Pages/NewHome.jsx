@@ -6,7 +6,6 @@ import MainButton from "../Components/Buttons/MainButton";
 import { useEffect, useState } from "react";
 import Slider from "../Components/Slider";
 import { Link } from "react-router-dom";
-
 // ===========================================
 
 import s1_1 from "../images/slider/s1.png";
@@ -29,6 +28,7 @@ import "aos/dist/aos.css";
 //============================================
 
 function Home() {
+
   useEffect(() => {
     AOS.init({ duration: "1000", delay: "100" });
   }, []);
@@ -253,6 +253,7 @@ function CTA() {
 
 function FAQ() {
   return (
+    
     <div
       data-aos="flip-down"
       className="flex justify-center mt-20 m-auto mb-3 w-full"
