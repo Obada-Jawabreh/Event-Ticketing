@@ -12,7 +12,6 @@ function TicketCard({ name, startDate, endDate, price, eventId, img }) {
   return (
     <div
       id="card"
-      data-aos="fade - up"
       className="  relative z-10 bg-gradient-prim rounded-2xl flex p-6 flex-col items-center gap-3 justify-between transition-transform duration-200 hover:scale-105 hover:bg-gradient-second"
     >
       <div id="img" className="h-1/2 w-full rounded-lg overflow-hidden">

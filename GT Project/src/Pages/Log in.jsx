@@ -11,8 +11,19 @@ import axios from "axios";
 import Form from "../Components/Form/Form";
 import { GoogleBtn } from "../Components/Buttons/VerButton";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+// ===============================
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// ===============================
 
 function Login() {
+  useEffect(() => {
+    AOS.init({ duration: "1000", delay: "100" });
+  }, []);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,7 +77,10 @@ function Login() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 px-8 md:px-24 lg:px-44 gap-12  justify-center content-start py-24">
-      <div className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl">
+      <div
+        className="bg-second-dark bg-gradient-prim p-4 md:p-16 rounded-xl"
+        data-aos="fade-right"
+      >
         <div className="flex flex-col place-content-between h-full">
           <Form
             title={"Login"}
@@ -103,7 +117,7 @@ function Login() {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="" data-aos="fade-left">
         <img
           src={login}
           alt="Event"

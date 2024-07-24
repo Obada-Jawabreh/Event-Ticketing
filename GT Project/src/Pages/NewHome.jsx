@@ -3,7 +3,7 @@ import cta from "../images/cta.png";
 import hero4 from "../images/4.png";
 import { Accordion } from "flowbite-react";
 import MainButton from "../Components/Buttons/MainButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "../Components/Slider";
 import { Link } from "react-router-dom";
 // ===========================================
@@ -20,20 +20,26 @@ import FetchEvents from "../Hooks/getEvents";
 import { dbURL } from "../FirebaseConfig/Config";
 import TicketCard from "../Components/TicketCard";
 // import { Link } from "react-router-dom";
+
+//============================================
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 //============================================
 
 function Home() {
-  
+
+  useEffect(() => {
+    AOS.init({ duration: "1000", delay: "100" });
+  }, []);
   return (
-    <div className="flex flex-col gap-10  mx-8 sm:mx-8 lg:mx-12 xl:mx-24">
+    <div className="flex flex-col gap-20  mx-8 sm:mx-8 lg:mx-12 xl:mx-24">
       <Hero />
       <LogosSlider />
-      {/* <TicketsSlider /> */}
       <Featuers />
       <Cards />
       <CTA />
       <FAQ />
-      <aboutUs />
     </div>
   );
 }
@@ -54,7 +60,7 @@ function Hero() {
         className="absolute bottom-0 right-100 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl bg-none  sm:bg-pink-500"
       ></div>
       <div id="img" className="relative z-10">
-        <img src={heroImg} />
+        <img src={heroImg} data-aos="fade-right" />
       </div>
       <div
         id="content"
@@ -113,7 +119,7 @@ function Featuers() {
     ],
   });
   return (
-    <div className="pt-12">
+    <div className="pt-12" data-aos="fade-up-left">
       <div id="featuers-Hiding">
         <p className="font-sans text-text-prim font-bold text-2xl">
           Featuers For You
@@ -143,7 +149,7 @@ function FeatuerCard({ featuer, description }) {
     <div>
       <div
         id="card"
-        className=" h-full relative z-10 bg-gradient-prim rounded-2xl flex p-7 flex-col items-center gap-4 justify-between font-sans text-start align-start "
+        className=" h-full relative z-10 bg-gradient-prim rounded-2xl flex p-7 flex-col items-center gap-4  font-sans text-start align-start "
       >
         <div className="w-full">
           <p id="featuer" className="text-purple-300  text-lg bold font-bold">
@@ -163,16 +169,45 @@ function FeatuerCard({ featuer, description }) {
   );
 }
 
+function Cards() {
+  const [events] = FetchEvents(dbURL);
+
+  return (
+    <div data-aos="fade-up-right">
+      <h2 className="text-2xl font-bold mt-12 text-text-prim">
+        Currently Trending Games
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6 py-6">
+        {events &&
+          events
+            .slice(0, 4)
+            .map((event) => (
+              <TicketCard
+                key={event.id}
+                name={event.name}
+                startDate={event.startDate}
+                endDate={event.endDate}
+                price={event.price}
+                eventId={event.id}
+                img={event.image}
+              />
+            ))}
+      </div>
+    </div>
+  );
+}
+
 function CTA() {
   const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div
+      data-aos="flip-down"
       id="card "
       className="grid grid-cols-1 md:grid-cols-2 bg-gradient-second p-10 md:p-20 rounded-2xl "
     >
       <div
         id="gradiant"
-        className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  bg-indigo-800  "
+        className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl   "
       ></div>
       <div id="content" className="flex flex-col gap-4 justify-between">
         <div className="flex flex-col gap-5">
@@ -208,7 +243,7 @@ function CTA() {
       >
         <div
           id="gradiant"
-          className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  bg-indigo-800  "
+          className="absolute top-0 left-0 right-0 w-80 md:w-96 h-96 shrink-0 rounded-full blur-3xl  "
         ></div>
         <img src={cta} className="w-1/2 h-auto" />
       </div>
@@ -219,7 +254,10 @@ function CTA() {
 function FAQ() {
   return (
     
-    <div className="flex justify-center mt-20 m-auto mb-3 w-full">
+    <div
+      data-aos="flip-down"
+      className="flex justify-center mt-20 m-auto mb-3 w-full"
+    >
       <Accordion className="self-center text-white bg-second-dark w-full">
         <h1 className="text-left font-bold text-2xl ml-5 mb-4 mt-4">FAQ's</h1>
         <Accordion.Panel className="focus:ring-transparent bg-blk">
@@ -302,31 +340,4 @@ const LogosSlider = () => {
   );
 };
 
-function Cards() {
-  const [events] = FetchEvents(dbURL);
-
-  return (
-    <div>
-      <h2 className="text-2xl font-bold mt-12 text-text-prim">
-        Currently Trending Games
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 gap-6 py-6">
-        {events &&
-          events
-            .slice(0, 4)
-            .map((event) => (
-              <TicketCard
-                key={event.id}
-                name={event.name}
-                startDate={event.startDate}
-                endDate={event.endDate}
-                price={event.price}
-                eventId={event.id}
-                img={event.image}
-              />
-            ))}
-      </div>
-    </div>
-  );
-}
 export default Home;
